@@ -2,10 +2,10 @@ import os, subprocess
 from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
 
-DeviceManager = Extension(
-                    'DeviceManager',
-                    libraries = ['DeviceManager'],
-                    sources = ['my_py_module.cpp', 'my_class_py_type.cpp'],
+DeviceManagerInterface = Extension(
+                    'DeviceManagerInterface',
+                    libraries = ['DeviceManagerInterface'],
+                    sources = ['python_devicemanager.cpp'],
                     extra_compile_args=['-std=c++17']
                     )
 
@@ -38,7 +38,8 @@ class CustomBuild(build_ext):
 
 
 
-setup   (  
-        ext_modules = [DeviceManager],
+setup   ( 
+        #name='DeviceManager', 
+        ext_modules = [DeviceManagerInterface],
         cmdclass = {'build_ext': CustomBuild}
         )
