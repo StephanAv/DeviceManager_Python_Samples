@@ -4,9 +4,14 @@ from setuptools.command.build_ext import build_ext
 
 DeviceManagerInterface = Extension(
                     'DeviceManagerInterface',
-                    libraries = ['DeviceManagerInterface'],
+                    libraries = ['DeviceManager'],
                     sources = ['python_devicemanager.cpp'],
-                    extra_compile_args=['-std=c++17']
+                    include_dirs = [    'types',
+                                        'DeviceManager_ADS_Samples/ADS',
+                                        'DeviceManager_ADS_Samples/Areas',
+                                        'C:/TwinCAT/AdsApi/TcAdsDll/Include'
+                                   ],
+                    extra_compile_args=['/std:c++17',  '/DUSE_TWINCAT_ROUTER' ]
                     )
 
 class CustomBuild(build_ext):
