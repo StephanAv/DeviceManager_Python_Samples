@@ -10,7 +10,7 @@ find_package(PythonLibs REQUIRED)
 
 add_library(DeviceManagerWrapper
     SHARED 
-        python_devicemanager.cpp
+        devicemanager_interface.cpp
         types/py_cpu.cpp
         types/py_twincat.cpp
         types/py_fso.cpp
