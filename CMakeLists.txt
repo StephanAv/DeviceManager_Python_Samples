@@ -10,14 +10,14 @@ find_package(PythonLibs REQUIRED)
 
 add_library(DeviceManagerWrapper
     SHARED 
-        devicemanager_interface.cpp
-        types/py_cpu.cpp
-        types/py_twincat.cpp
-        types/py_fso.cpp
-        types/py_mainboard.cpp
-        types/py_miscellaneous.cpp
-        types/py_general.cpp
-        types/py_device.cpp
+        src/devicemanager_interface.cpp
+        src/types/py_cpu.cpp
+        src/types/py_twincat.cpp
+        src/types/py_fso.cpp
+        src/types/py_mainboard.cpp
+        src/types/py_miscellaneous.cpp
+        src/types/py_general.cpp
+        src/types/py_device.cpp
 )
 
 if (WIN32)
@@ -33,10 +33,10 @@ if (WIN32)
     endif()
 endif()
 
-add_subdirectory(DeviceManager_ADS_Samples)
+add_subdirectory(src/DeviceManager_ADS_Samples)
 
 target_link_libraries(DeviceManagerWrapper PRIVATE DeviceManager ${PYTHON_LIBRARIES})
 target_include_directories(DeviceManagerWrapper PUBLIC
-        ${CMAKE_CURRENT_SOURCE_DIR}/types
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/types
         ${PYTHON_INCLUDE_DIRS} 
 )

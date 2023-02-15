@@ -13,18 +13,18 @@ tcAdsDllLibDir = os.path.abspath('C:/TwinCAT/AdsApi/TcAdsDll/x64/lib') if x86_64
 DeviceManagerInterface = Extension(
                     'DeviceManagerInterface',
                     libraries = ['DeviceManager', 'TcAdsDll'],
-                    sources =   [       'devicemanager_interface.cpp',
-                                        'types/py_cpu.cpp',
-                                        'types/py_device.cpp',
-                                        'types/py_fso.cpp',
-                                        'types/py_general.cpp',
-                                        'types/py_mainboard.cpp',
-                                        'types/py_miscellaneous.cpp',
-                                        'types/py_twincat.cpp',
+                    sources =   [       'src/devicemanager_interface.cpp',
+                                        'src/types/py_cpu.cpp',
+                                        'src/types/py_device.cpp',
+                                        'src/types/py_fso.cpp',
+                                        'src/types/py_general.cpp',
+                                        'src/types/py_mainboard.cpp',
+                                        'src/types/py_miscellaneous.cpp',
+                                        'src/types/py_twincat.cpp',
                                 ],
-                    include_dirs = [    'types',
-                                        'DeviceManager_ADS_Samples/ADS',
-                                        'DeviceManager_ADS_Samples/Areas',
+                    include_dirs = [    'src/types',
+                                        'src/DeviceManager_ADS_Samples/ADS',
+                                        'src/DeviceManager_ADS_Samples/Areas',
                                         'C:/TwinCAT/AdsApi/TcAdsDll/Include'
                                    ],
                     library_dirs=[tcAdsDllLibDir],
@@ -36,7 +36,7 @@ class CustomBuild(build_ext):
     def build_extensions(self):
 
         for ext in self.extensions:
-            print("Test")
+
             if ext.name == 'DeviceManagerInterface':
                 try:
                     out = subprocess.check_output(['cmake', '--version'])
@@ -49,22 +49,21 @@ class CustomBuild(build_ext):
                 cfg = 'Debug' if self.debug else 'Release'
                 
                 # Config
-                subprocess.check_call(['cmake', '-S', 'DeviceManager_ADS_Samples', '-B',  self.build_temp, '-DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE'])
+                subprocess.check_call(['cmake', '-S', 'src/DeviceManager_ADS_Samples', '-B',  self.build_temp, '-DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE'])
 
                 # Build
                 subprocess.check_call(['cmake', '--build', self.build_temp, '--target', 'DeviceManager', '--config', cfg])
-
                 
                 build_path = os.path.relpath(self.build_temp)
                 lib_path = os.path.join(build_path, cfg)
                 ext.library_dirs.append(build_path)
                 ext.library_dirs.append(lib_path) # TODO: Same path on all configurations?
+                
             super(CustomBuild, self).build_extension(ext)
 
 
 
 setup   ( 
-        #name='DeviceManager', 
         ext_modules = [DeviceManagerInterface],
         cmdclass = {'build_ext': CustomBuild}
         )
