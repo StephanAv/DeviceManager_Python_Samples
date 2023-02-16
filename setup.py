@@ -65,5 +65,6 @@ class CustomBuild(build_ext):
 
 setup   ( 
         ext_modules = [DeviceManagerInterface],
+        package_dir={'': 'src'},
         cmdclass = {'build_ext': CustomBuild}
         )

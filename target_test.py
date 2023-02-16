@@ -1,10 +1,11 @@
 import os, sys
 from pathlib import Path
 from inspect import getmembers
-# 'lib.win-amd64-3.9'
-current = Path().resolve() / 'build' / 'lib.win-amd64-3.9-pydebug'
+
+current = Path().resolve() / 'build' / 'lib.win-amd64-3.9'
 
 if os.name == 'nt': # Load TwinCAT DLL when on Windows
+    os.add_dll_directory(str(current))
     sys.path.append(str(current))
 
 import DeviceManager

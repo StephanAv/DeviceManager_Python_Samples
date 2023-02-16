@@ -1,0 +1,135 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>3dcff6ff-6126-4612-8241-b326748fd68a</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>tests\target_test.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <Name>python_dbg</Name>
+    <RootNamespace>python_dbg</RootNamespace>
+    <InterpreterId>Global|VisualStudio|Python39_64_dbg</InterpreterId>
+    <IsWindowsApplication>False</IsWindowsApplication>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <EnableNativeCodeDebugging>True</EnableNativeCodeDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="src\DeviceManager\cpu.py" />
+    <Compile Include="src\DeviceManager\mainboard.py" />
+    <Compile Include="src\DeviceManager\TargetDevice.py" />
+    <Compile Include="src\DeviceManager\__init__.py" />
+    <Compile Include="target_test.py" />
+    <Compile Include="tests\mod_test.py" />
+    <Compile Include="tests\target_test.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="Global|VisualStudio|Python39_64_dbg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\" />
+    <Folder Include="src\DeviceManager.egg-info\" />
+    <Folder Include="src\DeviceManager\" />
+    <Folder Include="src\DeviceManager\__pycache__\" />
+    <Folder Include="src\DeviceManager_ADS_Samples\" />
+    <Folder Include="src\DeviceManager_ADS_Samples\ADS\" />
+    <Folder Include="src\DeviceManager_ADS_Samples\Areas\" />
+    <Folder Include="src\DeviceManager_ADS_Samples\Examples\" />
+    <Folder Include="src\types\" />
+    <Folder Include="tests\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\DeviceManager.egg-info\dependency_links.txt" />
+    <Content Include="src\DeviceManager.egg-info\PKG-INFO" />
+    <Content Include="src\DeviceManager.egg-info\SOURCES.txt" />
+    <Content Include="src\DeviceManager.egg-info\top_level.txt" />
+    <Content Include="src\DeviceManager\__pycache__\cpu.cpython-39.pyc" />
+    <Content Include="src\DeviceManager\__pycache__\mainboard.cpython-39.pyc" />
+    <Content Include="src\DeviceManager\__pycache__\TargetDevice.cpython-39.pyc" />
+    <Content Include="src\DeviceManager\__pycache__\__init__.cpython-39.pyc" />
+    <Content Include="src\DeviceManager_ADS_Samples\.git" />
+    <Content Include="src\DeviceManager_ADS_Samples\.gitignore" />
+    <Content Include="src\DeviceManager_ADS_Samples\ADS\ads_error.h" />
+    <Content Include="src\DeviceManager_ADS_Samples\ADS\ads_exception.h" />
+    <Content Include="src\DeviceManager_ADS_Samples\ADS\BasicADS.h" />
+    <Content Include="src\DeviceManager_ADS_Samples\ADS\GenericAdsClient.h" />
+    <Content Include="src\DeviceManager_ADS_Samples\ADS\TC1000_AdsClient.h" />
+    <Content Include="src\DeviceManager_ADS_Samples\Areas\BDM_ConfigurationArea.cpp" />
+    <Content Include="src\DeviceManager_ADS_Samples\Areas\BDM_ConfigurationArea.h" />
+    <Content Include="src\DeviceManager_ADS_Samples\Areas\BDM_DeviceArea.cpp" />
+    <Content Include="src\DeviceManager_ADS_Samples\Areas\BDM_DeviceArea.h" />
+    <Content Include="src\DeviceManager_ADS_Samples\Areas\BDM_GeneralArea.cpp" />
+    <Content Include="src\DeviceManager_ADS_Samples\Areas\BDM_GeneralArea.h" />
+    <Content Include="src\DeviceManager_ADS_Samples\Areas\CMakeLists.txt" />
+    <Content Include="src\DeviceManager_ADS_Samples\Areas\cpu.cpp" />
+    <Content Include="src\DeviceManager_ADS_Samples\Areas\cpu.h" />
+    <Content Include="src\DeviceManager_ADS_Samples\Areas\file_system_object.cpp" />
+    <Content Include="src\DeviceManager_ADS_Samples\Areas\file_system_object.h" />
+    <Content Include="src\DeviceManager_ADS_Samples\Areas\mainboard.cpp" />
+    <Content Include="src\DeviceManager_ADS_Samples\Areas\mainboard.h" />
+    <Content Include="src\DeviceManager_ADS_Samples\Areas\Mdp.h" />
+    <Content Include="src\DeviceManager_ADS_Samples\Areas\miscellaneous.cpp" />
+    <Content Include="src\DeviceManager_ADS_Samples\Areas\miscellaneous.h" />
+    <Content Include="src\DeviceManager_ADS_Samples\Areas\nic.cpp" />
+    <Content Include="src\DeviceManager_ADS_Samples\Areas\nic.h" />
+    <Content Include="src\DeviceManager_ADS_Samples\Areas\twincat.cpp" />
+    <Content Include="src\DeviceManager_ADS_Samples\Areas\twincat.h" />
+    <Content Include="src\DeviceManager_ADS_Samples\CMakeLists.txt" />
+    <Content Include="src\DeviceManager_ADS_Samples\CMakeSettings.json" />
+    <Content Include="src\DeviceManager_ADS_Samples\Examples\change_ip.cpp" />
+    <Content Include="src\DeviceManager_ADS_Samples\Examples\CMakeLists.txt" />
+    <Content Include="src\DeviceManager_ADS_Samples\Examples\copy_file.cpp" />
+    <Content Include="src\DeviceManager_ADS_Samples\Examples\delete_file.cpp" />
+    <Content Include="src\DeviceManager_ADS_Samples\Examples\delete_route.cpp" />
+    <Content Include="src\DeviceManager_ADS_Samples\Examples\dir.cpp" />
+    <Content Include="src\DeviceManager_ADS_Samples\Examples\get_cpu_info.cpp" />
+    <Content Include="src\DeviceManager_ADS_Samples\Examples\get_device_name.cpp" />
+    <Content Include="src\DeviceManager_ADS_Samples\Examples\get_mainboard_info.cpp" />
+    <Content Include="src\DeviceManager_ADS_Samples\Examples\get_serial_number.cpp" />
+    <Content Include="src\DeviceManager_ADS_Samples\Examples\get_tc_version.cpp" />
+    <Content Include="src\DeviceManager_ADS_Samples\Examples\mkdir.cpp" />
+    <Content Include="src\DeviceManager_ADS_Samples\Examples\read_file.cpp" />
+    <Content Include="src\DeviceManager_ADS_Samples\Examples\read_file_progress_bar.cpp" />
+    <Content Include="src\DeviceManager_ADS_Samples\Examples\reboot.cpp" />
+    <Content Include="src\DeviceManager_ADS_Samples\Examples\write_file.cpp" />
+    <Content Include="src\DeviceManager_ADS_Samples\Examples\write_file_progress_bar.cpp" />
+    <Content Include="src\DeviceManager_ADS_Samples\LICENSE" />
+    <Content Include="src\DeviceManager_ADS_Samples\README.md" />
+    <Content Include="src\devicemanager_interface.cpp" />
+    <Content Include="src\types\ads_py_error.h" />
+    <Content Include="src\types\py_cpu.cpp" />
+    <Content Include="src\types\py_cpu.h" />
+    <Content Include="src\types\py_device.cpp" />
+    <Content Include="src\types\py_device.h" />
+    <Content Include="src\types\py_fso.cpp" />
+    <Content Include="src\types\py_fso.h" />
+    <Content Include="src\types\py_general.cpp" />
+    <Content Include="src\types\py_general.h" />
+    <Content Include="src\types\py_mainboard.cpp" />
+    <Content Include="src\types\py_mainboard.h" />
+    <Content Include="src\types\py_miscellaneous.cpp" />
+    <Content Include="src\types\py_miscellaneous.h" />
+    <Content Include="src\types\py_slot_templates.h" />
+    <Content Include="src\types\py_twincat.cpp" />
+    <Content Include="src\types\py_twincat.h" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+  <!-- Uncomment the CoreCompile target to enable the Build command in
+       Visual Studio and specify your pre- and post-build commands in
+       the BeforeBuild and AfterBuild targets below. -->
+  <!--<Target Name="CoreCompile" />-->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+</Project>
