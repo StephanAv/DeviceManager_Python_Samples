@@ -1,11 +1,25 @@
 import os, sys
 from pathlib import Path
 from inspect import getmembers
+
 # 'lib.win-amd64-3.9'
-current = Path().resolve() / 'build' / 'lib.win-amd64-3.9-pydebug'
+extBinDir = Path().resolve() / 'build' / 'lib.win-amd64-3.9-pydebug'
 
 if os.name == 'nt': # Load TwinCAT DLL when on Windows
-    sys.path.append(str(current))
+    sys.path.append(str(extBinDir))
+
+#### OPTIONS ####
+
+bRebuild = True
+if bRebuild:
+    os.remove(extBinDir / '*.pyd' )
+    os.system('python_d setup.py build --debug')
+
+
+
+
+
+
 
 import DeviceManager
 #from DeviceManager.TargetDevice import Target
@@ -35,7 +49,10 @@ else:
 #### Mainboard ####
 
 if(mb := target.Mainboard) and bMB:
-    input("Press Enter to continue...")
+    print(mb.serialNumber())
     print(mb.all())
 else:
     print('Mainboard Module not available')
+
+
+input("Press Enter to exit...")

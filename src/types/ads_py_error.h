@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <sstream>
 
-static PyObject* adsErrorStr(int16_t err){
+static PyObject* adsErrorStr(int32_t err){
     // TODO: Differentiate between the differen types of errors
     // https://infosys.beckhoff.com/content/1031/devicemanager/263043211.html?id=2363184543884076807 
     std::stringstream ss;

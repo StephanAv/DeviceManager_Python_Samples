@@ -25,11 +25,11 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="setup.py" />
     <Compile Include="src\DeviceManager\cpu.py" />
     <Compile Include="src\DeviceManager\mainboard.py" />
     <Compile Include="src\DeviceManager\TargetDevice.py" />
     <Compile Include="src\DeviceManager\__init__.py" />
-    <Compile Include="target_test.py" />
     <Compile Include="tests\mod_test.py" />
     <Compile Include="tests\target_test.py" />
   </ItemGroup>
