@@ -1,4 +1,6 @@
+#fro    m gettext import bind_textdomain_codeset
 import os, sys, glob
+from shutil import rmtree
 from pathlib import Path
 from inspect import getmembers
 
@@ -9,48 +11,55 @@ if os.name == 'nt': # Load TwinCAT DLL when on Windows
     sys.path.append(str(extBinDir))
 
 #### OPTIONS ####
-bRebuild = True
+bBuild      = True
+bRebuild    = True
+bCPU        = False
+bMB         = False
+bTC         = True
 
-if bRebuild:
-    for f in glob.glob(str(extBinDir / '*.pyd')):
-        os.remove(f)
+
+if bBuild:
+    if bRebuild:
+        for f in glob.glob(str(extBinDir / '*.pyd')):
+            os.remove(f)
+    try:
+        rmtree(str(extBinDir / 'devicemanager'))
+    except Exception:
+        pass
     os.system('python_d setup.py build --debug')
 
 
-
-
-
-import DeviceManager
-#from DeviceManager.TargetDevice import Target
-#from DeviceManager import TargetDevice
-from DeviceManager.TargetDevice import Target
-#for attr in getmembers(Target):
-#    print(attr)
-
-
-
-print('Process ID: ' + str(os.getpid()))
-
-#target = Target('5.69.55.236.1.1') # Windows
-target = Target('5.80.201.232.1.1') # TC/BSD
-
-bCPU    = False
-bMB     = True
 try:
-    ###### CPU #######
+    from devicemanager.targetdevice import Target
+except Exception as e:
+    print(e)
+print('Current Process ID: ' + str(os.getpid()))
+
+target = Target('5.69.55.236.1.1') # Windows
+#target = Target('5.80.201.232.1.1') # TC/BSD
+
+
+try:
+    ####### CPU ########
 
     if (cpu := target.CPU) and bCPU:
         print(cpu.all())
     else:
-        print('CPU Module not available')
+        print('CPU module not available on target')
 
     #### Mainboard ####
 
     if(mb := target.Mainboard) and bMB:
-        print(mb.serialNumber())
         print(mb.all())
     else:
-        print('Mainboard Module not available')
+        print('Mainboard module not available on target')
+
+    ##### TwinCAT #####
+
+    if(tc := target.TwinCAT) and bTC:
+        print(tc.all())
+    else:
+        print('TwinCAT module not available on target')
 
 except Exception as e:
     print(e)

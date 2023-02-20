@@ -33,7 +33,7 @@ static PyType_Slot FsoType_slots[] = {
 };
 
 static PyType_Spec FsoType_spec = {
-    "FileSystem", // tp_name
+    "devicemanagerinterface.FileSystem", // tp_name
     #if defined(USE_TWINCAT_ROUTER)
     sizeof(FsoType) + sizeof(TC1000AdsClient), // tp_basicsize
 #else

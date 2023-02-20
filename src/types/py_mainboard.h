@@ -31,7 +31,7 @@ static PyType_Slot MbType_slots[] = {
 };
 
 static PyType_Spec MbType_spec = {
-    "Mainboard", // tp_name
+    "devicemanagerinterface.Mainboard", // tp_name
     #if defined(USE_TWINCAT_ROUTER)
     sizeof(MbType) + sizeof(TC1000AdsClient), // tp_basicsize
 #else

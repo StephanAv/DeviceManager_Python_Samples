@@ -11,7 +11,7 @@ tcAdsDllLibDir = os.path.abspath('C:/TwinCAT/AdsApi/TcAdsDll/x64/lib') if x86_64
 
 
 DeviceManagerInterface = Extension(
-                    'DeviceManagerInterface',
+                    'devicemanagerinterface',
                     libraries = ['DeviceManager', 'TcAdsDll'],
                     sources =   [       'src/devicemanager_interface.cpp',
                                         'src/types/py_cpu.cpp',
@@ -37,7 +37,7 @@ class CustomBuild(build_ext):
 
         for ext in self.extensions:
 
-            if ext.name == 'DeviceManagerInterface':
+            if ext.name == 'devicemanagerinterface':
                 try:
                     out = subprocess.check_output(['cmake', '--version'])
                 except Exception:

@@ -24,7 +24,7 @@ static PyType_Slot GenType_slots[] = {
 };
 
 static PyType_Spec GenType_spec = {
-    "General", // tp_name
+    "devicemanagerinterface.General", // tp_name
     #if defined(USE_TWINCAT_ROUTER)
     sizeof(GenType) + sizeof(TC1000AdsClient), // tp_basicsize
 #else

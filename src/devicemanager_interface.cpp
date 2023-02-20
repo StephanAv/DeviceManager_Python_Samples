@@ -9,7 +9,7 @@
 
 PyModuleDef devman_module = {
     PyModuleDef_HEAD_INIT,
-    "DeviceManagerInterface", // Module name
+    "devicemanagerinterface", // Module name
     "Allows to access various properties of Beckhoff IPCs",
     -1,   // Optional size of the module state memory
     NULL, // Optional method definitions
@@ -26,7 +26,7 @@ void decref(std::vector<PyObject*>& vDecr) {
 }
 
 PyMODINIT_FUNC 
-PyInit_DeviceManagerInterface(void) {
+PyInit_devicemanagerinterface(void) {
 
     std::vector<PyObject*> vDecr;
     PyObject* module = PyModule_Create(&devman_module);

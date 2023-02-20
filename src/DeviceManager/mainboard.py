@@ -2,7 +2,7 @@ import os
 if os.name == 'nt': # Load TwinCAT DLL when on Windows
     os.add_dll_directory('C:/TwinCAT/Common64')
 
-from DeviceManagerInterface import Mainboard as _mb
+from devicemanagerinterface import Mainboard as _mb
 
 class Mainboard:
 

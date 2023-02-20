@@ -29,7 +29,7 @@ static PyType_Slot TcType_slots[] = {
 };
 
 static PyType_Spec TcType_spec = {
-    "TwinCAT", // tp_name
+    "devicemanagerinterface.TwinCAT", // tp_name
     #if defined(USE_TWINCAT_ROUTER)
     sizeof(TcType) + sizeof(TC1000AdsClient), // tp_basicsize
 #else

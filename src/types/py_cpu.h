@@ -28,7 +28,7 @@ static PyType_Slot CpuType_slots[] = {
 };
 
 static PyType_Spec CpuType_spec = {
-    "CPU", // tp_name
+    "devicemanagerinterface.CPU", // tp_name
     #if defined(USE_TWINCAT_ROUTER)
     sizeof(CpuType) + sizeof(TC1000AdsClient), // tp_basicsize
 #else

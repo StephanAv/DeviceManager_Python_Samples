@@ -1,9 +1,7 @@
 import os
-from DeviceManager.cpu import CPU
-from DeviceManager.mainboard import Mainboard
-#import DeviceManager.cpu as _cpu
-
-
+from devicemanager.cpu import CPU
+from devicemanager.mainboard import Mainboard
+from devicemanager.twincat import TwinCAT
 
 class Target:
 
@@ -18,8 +16,5 @@ class Target:
         self.Mainboard = None
         self.Mainboard = Mainboard(self.AmsNetId, self.ipAddr)
 
-#x = {}
-
-
-def add_two(number):
-    return number + 2
+        self.TwinCAT = None
+        self.TwinCAT = TwinCAT(self.AmsNetId, self.ipAddr)

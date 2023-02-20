@@ -26,10 +26,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="setup.py" />
-    <Compile Include="src\DeviceManager\cpu.py" />
-    <Compile Include="src\DeviceManager\mainboard.py" />
-    <Compile Include="src\DeviceManager\TargetDevice.py" />
-    <Compile Include="src\DeviceManager\__init__.py" />
+    <Compile Include="src\devicemanager\cpu.py" />
+    <Compile Include="src\devicemanager\mainboard.py" />
+    <Compile Include="src\devicemanager\targetdevice.py" />
+    <Compile Include="src\devicemanager\twincat.py" />
+    <Compile Include="src\devicemanager\__init__.py" />
     <Compile Include="tests\mod_test.py" />
     <Compile Include="tests\target_test.py" />
   </ItemGroup>
@@ -39,7 +40,7 @@
   <ItemGroup>
     <Folder Include="src\" />
     <Folder Include="src\DeviceManager.egg-info\" />
-    <Folder Include="src\DeviceManager\" />
+    <Folder Include="src\devicemanager\" />
     <Folder Include="src\DeviceManager\__pycache__\" />
     <Folder Include="src\DeviceManager_ADS_Samples\" />
     <Folder Include="src\DeviceManager_ADS_Samples\ADS\" />
