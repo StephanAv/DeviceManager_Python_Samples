@@ -1,4 +1,4 @@
-import os, sys
+import os, sys, glob
 from pathlib import Path
 from inspect import getmembers
 
@@ -9,13 +9,12 @@ if os.name == 'nt': # Load TwinCAT DLL when on Windows
     sys.path.append(str(extBinDir))
 
 #### OPTIONS ####
-
 bRebuild = True
+
 if bRebuild:
-    os.remove(extBinDir / '*.pyd' )
+    for f in glob.glob(str(extBinDir / '*.pyd')):
+        os.remove(f)
     os.system('python_d setup.py build --debug')
-
-
 
 
 
@@ -37,22 +36,26 @@ target = Target('5.80.201.232.1.1') # TC/BSD
 
 bCPU    = False
 bMB     = True
+try:
+    ###### CPU #######
+
+    if (cpu := target.CPU) and bCPU:
+        print(cpu.all())
+    else:
+        print('CPU Module not available')
+
+    #### Mainboard ####
+
+    if(mb := target.Mainboard) and bMB:
+        print(mb.serialNumber())
+        print(mb.all())
+    else:
+        print('Mainboard Module not available')
+
+except Exception as e:
+    print(e)
 
 
-###### CPU #######
-
-if (cpu := target.CPU) and bCPU:
-    print(cpu.all())
-else:
-    print('CPU Module not available')
-
-#### Mainboard ####
-
-if(mb := target.Mainboard) and bMB:
-    print(mb.serialNumber())
-    print(mb.all())
-else:
-    print('Mainboard Module not available')
 
 
 input("Press Enter to exit...")
