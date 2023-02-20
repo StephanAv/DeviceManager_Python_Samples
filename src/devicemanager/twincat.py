@@ -23,6 +23,9 @@ class TwinCAT:
     def buildVersion(self) -> int:
         return self._twincat.getTcBuild()
 
+    def deleteAdsRoute(self, name : str):
+        self._twincat.deleteAdsRoute(name)
+
     def all(self) -> dict:
         return {
             'TwinCAT Version' : str(self.majorVersion())
