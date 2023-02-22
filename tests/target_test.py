@@ -1,4 +1,5 @@
 #fro    m gettext import bind_textdomain_codeset
+from email.generator import BytesGenerator
 import os, sys, glob
 from shutil import rmtree
 from pathlib import Path
@@ -15,7 +16,8 @@ bBuild      = True
 bRebuild    = True
 bCPU        = False
 bMB         = False
-bTC         = True
+bTC         = False
+bGen        = True
 
 
 if bBuild:
@@ -58,8 +60,16 @@ try:
 
     if(tc := target.TwinCAT) and bTC:
         print(tc.all())
+        tc.deleteAdsRoute('StephanA01.beckhoff.com')
     else:
         print('TwinCAT module not available on target')
+
+    #### General ####
+
+    if(gen := target.General) and bGen:
+        print(gen.name())
+    else:
+        print('General module not available on target')
 
 except Exception as e:
     print(e)

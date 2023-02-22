@@ -1,37 +1,42 @@
-import os, sys
-from inspect import getmembers
+try:
+    from devicemanager.targetdevice import Target
+    
+except Exception as e:
+    print(e)
 
-if os.name == 'nt': # Check Python version 
-    os.add_dll_directory('C:/TwinCAT/Common64')
-    #sys.path.append('C:/Users/StephanA/source/repos/DeviceManager_ADS_Samples/out/build/x64-Release/PyModule')
-
-#print("sys.path:")
-#print('\n'.join(sys.path))
-#print('os.name: {}'.format(os.name))
-
-import DeviceManagerInterface
-from DeviceManagerInterface import *
-#print('Loaded DeviceManager binary: {}'.format(DeviceManager.__file__))
-
-for attr in getmembers(DeviceManagerInterface):
-    print(attr)
+target = Target('5.69.55.236.1.1') # Windows
 
 
-# Windows 10
+bCPU        = True
+bMB         = True
+bTC         = True
 
-amsNetId = "5.69.55.236.1.1"  
-ipAddr   = "192.168.1.102"
+cpu     = target.CPU
+mb      = target.Mainboard
+tc      = target.TwinCAT
 
-# TwinCAT/BSD
+try:
+    ####### CPU ########
 
-#amsNetId = "5.80.201.232.1.1" 
-#ipAddr   = "192.168.1.98"
+    if cpu and bCPU:
+        print(cpu.all())
+    else:
+        print('CPU module not available on target')
 
-#if os.name == 'nt': 
-    #cpu = CPU(amsNetId)
-    #tc  = TwinCAT(amsNetId)
-    #fs   = FileSystem(amsNetId)
-    #mb = Mainboard(amsNetId)
-    #misc  = Miscellaneous(amsNetId)
-    #general = General(amsNetId)
-    #device = Device(amsNetId)
+    #### Mainboard ####
+
+    if mb and bMB:
+        print(mb.all())
+    else:
+        print('Mainboard module not available on target')
+
+    ##### TwinCAT #####
+
+    if tc and bTC:
+        print(tc.all())
+        tc.deleteAdsRoute('StephanA01.beckhoff.com')
+    else:
+        print('TwinCAT module not available on target')
+
+except Exception as e:
+    print(e)= Device(amsNetId)

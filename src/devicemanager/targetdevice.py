@@ -2,6 +2,7 @@ import os
 from devicemanager.cpu import CPU
 from devicemanager.mainboard import Mainboard
 from devicemanager.twincat import TwinCAT
+from devicemanager.general import General
 
 class Target:
 
@@ -18,3 +19,6 @@ class Target:
 
         self.TwinCAT = None
         self.TwinCAT = TwinCAT(self.AmsNetId, self.ipAddr)
+
+        self.General = None
+        self.General = General(self.AmsNetId, self.ipAddr)
