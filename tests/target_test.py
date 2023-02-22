@@ -1,4 +1,5 @@
 #fro    m gettext import bind_textdomain_codeset
+from asyncio import base_tasks
 from email.generator import BytesGenerator
 import os, sys, glob
 from shutil import rmtree
@@ -13,11 +14,12 @@ if os.name == 'nt': # Load TwinCAT DLL when on Windows
 
 #### OPTIONS ####
 bBuild      = True
-bRebuild    = True
-bCPU        = False
+bRebuild    = False
+bTarget     = True
+bCPU        = True
 bMB         = False
 bTC         = False
-bGen        = True
+bGen        = False
 
 
 if bBuild:
@@ -28,6 +30,7 @@ if bBuild:
         rmtree(str(extBinDir / 'devicemanager'))
     except Exception:
         pass
+
     os.system('python_d setup.py build --debug')
 
 
@@ -41,7 +44,16 @@ target = Target('5.69.55.236.1.1') # Windows
 #target = Target('5.80.201.232.1.1') # TC/BSD
 
 
+##### Target #####
+if bTarget:
+    try:
+        print(target.all())
+    except Exception as e:
+        print(e)
+        pass
+
 try:
+
     ####### CPU ########
 
     if (cpu := target.CPU) and bCPU:

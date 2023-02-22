@@ -22,3 +22,35 @@ class Target:
 
         self.General = None
         self.General = General(self.AmsNetId, self.ipAddr)
+
+    def all(self) -> dict:
+        targetInfo = {}
+        if self.CPU:
+            try:
+                targetInfo['CPU'] = self.CPU.all()
+            except Exception as e:
+                print('Exception reading CPU: ' + str(e))
+                pass
+
+        if self.Mainboard:
+            try:
+                targetInfo['Mainboard'] = self.Mainboard.all()
+            except Exception as e:
+                print('Exception reading Mainboard: ' + str(e))
+                pass
+            
+        if self.TwinCAT:
+            try:
+                targetInfo['TwinCAT'] = self.TwinCAT.all()
+            except Exception as e:
+                print('Exception reading TwinCAT: ' + str(e))
+                pass
+
+        if self.General:
+            try:
+                targetInfo['General'] = self.General.all()
+            except Exception as e:
+                print('Exception reading TwinCAT: ' + str(e))
+                pass
+
+        return targetInfo

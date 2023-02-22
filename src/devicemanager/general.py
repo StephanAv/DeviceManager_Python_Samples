@@ -9,9 +9,14 @@ class General:
     _general = None
 
     def __init__(self, AmsNetId: str, ipAddr : str = ''):
-        print('Mainboard::__init__() called')
+        print('General::__init__() called')
         if os.name == 'nt':
             self._general = _general(AmsNetId)
 
-    def name(self):
+    def name(self) -> str:
         return self._general.deviceName()
+
+    def all(self) -> dict:
+        return {
+            'Name' : self.name()
+        }
