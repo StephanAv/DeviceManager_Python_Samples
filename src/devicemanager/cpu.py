@@ -8,11 +8,11 @@ class CPU:
 
     _cpu = None
 
-    def __init__(self, AmsNetId: str, ipAddr : str = ''):
+    def __init__(self, AmsNetId: str, ipAddr : str = '', timeout = 2000):
         print('CPU::__init__() called')
         
         if os.name == 'nt':
-            self._cpu = _cpu(AmsNetId)
+            self._cpu = _cpu(AmsNetId, timeout)
 
 
     def frequency(self) -> int:

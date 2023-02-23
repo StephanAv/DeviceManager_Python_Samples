@@ -8,10 +8,10 @@ class Mainboard:
 
     _mb = None
 
-    def __init__(self, AmsNetId: str, ipAddr : str = ''):
+    def __init__(self, AmsNetId: str, ipAddr : str = '', timeout = 2000):
         print('Mainboard::__init__() called')
         if os.name == 'nt':
-            self._mb = _mb(AmsNetId)
+            self._mb = _mb(AmsNetId, timeout)
 
     def serialNumber(self) -> str:
         return self._mb.serialNumber()

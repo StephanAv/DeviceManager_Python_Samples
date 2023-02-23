@@ -8,10 +8,10 @@ class General:
 
     _general = None
 
-    def __init__(self, AmsNetId: str, ipAddr : str = ''):
+    def __init__(self, AmsNetId: str, ipAddr : str = '', timeout = 2000):
         print('General::__init__() called')
         if os.name == 'nt':
-            self._general = _general(AmsNetId)
+            self._general = _general(AmsNetId, timeout)
 
     def name(self) -> str:
         return self._general.deviceName()

@@ -27,6 +27,7 @@
   <ItemGroup>
     <Compile Include="setup.py" />
     <Compile Include="src\devicemanager\cpu.py" />
+    <Compile Include="src\devicemanager\general.py" />
     <Compile Include="src\devicemanager\mainboard.py" />
     <Compile Include="src\devicemanager\targetdevice.py" />
     <Compile Include="src\devicemanager\twincat.py" />

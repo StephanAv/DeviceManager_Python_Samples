@@ -6,22 +6,22 @@ from devicemanager.general import General
 
 class Target:
 
-    def __init__(self, AmsNetId: str, ipAddr : str = ''):
+    def __init__(self, AmsNetId: str, ipAddr : str = '', timeout = 2000):
         print('Target::__init__() called')
         self.AmsNetId = AmsNetId
         self.ipAddr = ipAddr
 
         self.CPU = None
-        self.CPU = CPU(self.AmsNetId, self.ipAddr)
+        self.CPU = CPU(self.AmsNetId, self.ipAddr, timeout)
 
         self.Mainboard = None
-        self.Mainboard = Mainboard(self.AmsNetId, self.ipAddr)
+        self.Mainboard = Mainboard(self.AmsNetId, self.ipAddr, timeout)
 
         self.TwinCAT = None
-        self.TwinCAT = TwinCAT(self.AmsNetId, self.ipAddr)
+        self.TwinCAT = TwinCAT(self.AmsNetId, self.ipAddr, timeout)
 
         self.General = None
-        self.General = General(self.AmsNetId, self.ipAddr)
+        self.General = General(self.AmsNetId, self.ipAddr, timeout)
 
     def all(self) -> dict:
         targetInfo = {}

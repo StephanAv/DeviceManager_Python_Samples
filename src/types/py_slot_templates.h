@@ -46,14 +46,17 @@ int dtype_init(PyObject *self, PyObject *args, PyObject *kwds){
 
     // Process Python arguments
     char *amsAddr = NULL;
+    // Default Timeout 
+    uint32_t timeout = 2000; 
+
 #if defined(USE_TWINCAT_ROUTER)
-    if (!PyArg_ParseTuple(args, "s", &amsAddr)) {
+    if (!PyArg_ParseTuple(args, "s|k", &amsAddr, &timeout)) {
         return -1;
     }
 #else
     char *ipAddr  = NULL;
     // TODO oder ss
-    if (!PyArg_ParseTuple(args, "ss", &amsAddr, &ipAddr)) {
+    if (!PyArg_ParseTuple(args, "ss|k", &amsAddr, &ipAddr)) {
         return -1;
     }
 #endif
@@ -90,7 +93,7 @@ int dtype_init(PyObject *self, PyObject *args, PyObject *kwds){
     }
 
     try {
-        new (self_dtype->m_ads) TC1000AdsClient(remoteNetId);
+        new (self_dtype->m_ads) TC1000AdsClient(remoteNetId, timeout);
     }
     catch (const std::exception& ex) {
         std::cout << "ADS Exception" << std::endl;
@@ -109,7 +112,7 @@ int dtype_init(PyObject *self, PyObject *args, PyObject *kwds){
     }
 
     try{
-        new (self_dtype->m_ads) GenericAdsClient(remoteNetId, ipAddr);
+        new (self_dtype->m_ads) GenericAdsClient(remoteNetId, ipAddr, timeout);
     } catch (const AdsException &ex) {
         std::cout << "ADS Exception" << std::endl;
         PyObject_Free(self_dtype->m_ads);

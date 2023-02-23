@@ -8,11 +8,11 @@ class TwinCAT:
 
     _twincat = None
 
-    def __init__(self, AmsNetId: str, ipAddr : str = ''):
+    def __init__(self, AmsNetId: str, ipAddr : str = '', timeout = 2000):
         print('TwinCAT::__init__() called')
         
         if os.name == 'nt':
-            self._twincat = _twincat(AmsNetId)
+            self._twincat = _twincat(AmsNetId, timeout)
 
     def majorVersion(self) -> int:
         return self._twincat.getTcMajor()
