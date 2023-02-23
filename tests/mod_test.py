@@ -1,3 +1,5 @@
+import json
+
 try:
     from devicemanager.targetdevice import Target
     
@@ -6,7 +8,7 @@ except Exception as e:
 
 target = Target('5.69.55.236.1.1') # Windows
 
-
+bTarget     = True
 bCPU        = True
 bMB         = True
 bTC         = True
@@ -14,6 +16,15 @@ bTC         = True
 cpu     = target.CPU
 mb      = target.Mainboard
 tc      = target.TwinCAT
+
+##### Target #####
+if bTarget:
+    try:
+        #print(target.all())
+        print(json.dumps(target.all(),sort_keys=True, indent=4))
+    except Exception as e:
+        print(e)
+        pass
 
 try:
     ####### CPU ########
