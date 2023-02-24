@@ -1,0 +1,32 @@
+{
+    // Verwendet IntelliSense zum Ermitteln möglicher Attribute.
+    // Zeigen Sie auf vorhandene Attribute, um die zugehörigen Beschreibungen anzuzeigen.
+    // Weitere Informationen finden Sie unter https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch setup.py [Debug]",
+            "type": "python",
+            "request": "launch",
+            "program": "setup.py",
+            "args": ["build", "--debug"],
+            "cwd": "${workspaceFolder}",
+        },
+        {
+            "name": "Launch setup.py [Release]",
+            "type": "python",
+            "request": "launch",
+            "program": "setup.py",
+            "args": ["build"],
+            "cwd": "${workspaceFolder}",
+        },
+        {
+            "name": "Debug target_test [Debug]",
+            "type": "python",
+            "request": "launch",
+            "program": "tests/target_test.py",
+            "cwd": "${workspaceFolder}",
+            //"python": "python_d"
+        },
+    ]
+}

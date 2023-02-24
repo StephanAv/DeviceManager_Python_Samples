@@ -3,6 +3,7 @@ from devicemanager.cpu import CPU
 from devicemanager.mainboard import Mainboard
 from devicemanager.twincat import TwinCAT
 from devicemanager.general import General
+from devicemanager.device import Device
 
 class Target:
 
@@ -22,6 +23,9 @@ class Target:
 
         self.General = None
         self.General = General(self.AmsNetId, self.ipAddr, timeout)
+
+        self.Device = None
+        self.Device = Device(self.AmsNetId, self.ipAddr, timeout)
 
     def all(self) -> dict:
         targetInfo = {}
@@ -51,6 +55,13 @@ class Target:
                 targetInfo['General'] = self.General.all()
             except Exception as e:
                 print('Exception reading TwinCAT: ' + str(e))
+                pass
+
+        if self.Device:
+            try:
+                targetInfo['Device'] = self.Device.all()
+            except Exception as e:
+                print('Exception reading Device: ' + str(e))
                 pass
 
         return targetInfo

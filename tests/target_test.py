@@ -13,7 +13,7 @@ if os.name == 'nt': # Load TwinCAT DLL when on Windows
     sys.path.append(str(extBinDir))
 
 #### OPTIONS ####
-bBuild      = False
+bBuild      = True
 bRebuild    = False
 bTarget     = True
 bCPU        = False
