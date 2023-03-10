@@ -7,6 +7,7 @@
 #include "py_general.h"
 #include "py_device.h"
 
+
 PyModuleDef devman_module = {
     PyModuleDef_HEAD_INIT,
     "devicemanagerinterface", // Module name
@@ -25,7 +26,7 @@ void decref(std::vector<PyObject*>& vDecr) {
     }
 }
 
-PyMODINIT_FUNC 
+PyMODINIT_FUNC
 PyInit_devicemanagerinterface(void) {
 
     std::vector<PyObject*> vDecr;

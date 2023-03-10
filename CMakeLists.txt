@@ -4,11 +4,12 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+# CMAKE SET / OPTION |
 
 find_package(PythonInterp REQUIRED)
 find_package(PythonLibs REQUIRED)
 
-add_library(DeviceManagerWrapper
+add_library(devicemanagerinterface
     SHARED 
         src/devicemanager_interface.cpp
         src/types/py_cpu.cpp
@@ -23,20 +24,37 @@ add_library(DeviceManagerWrapper
 if (WIN32)
     add_compile_definitions(USE_TWINCAT_ROUTER)
 
-    target_include_directories(DeviceManagerWrapper PUBLIC "C:\\TwinCAT\\AdsApi\\TcAdsDll\\Include")
-    target_link_libraries(DeviceManagerWrapper PUBLIC TcAdsDll.lib)
+    target_include_directories(devicemanagerinterface PUBLIC "C:\\TwinCAT\\AdsApi\\TcAdsDll\\Include")
+    target_link_libraries(devicemanagerinterface PUBLIC TcAdsDll.lib)
 
     if(CMAKE_SIZEOF_VOID_P EQUAL 8)
-        target_link_directories(DeviceManagerWrapper PRIVATE "C:\\TwinCAT\\AdsApi\\TcAdsDll\\x64\\lib")
+        target_link_directories(devicemanagerinterface PRIVATE "C:\\TwinCAT\\AdsApi\\TcAdsDll\\x64\\lib")
     elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
-        target_link_directories(DeviceManagerWrapper PRIVATE "C:\\TwinCAT\\AdsApi\\TcAdsDll\\lib")
+        target_link_directories(devicemanagerinterface PRIVATE "C:\\TwinCAT\\AdsApi\\TcAdsDll\\lib")
     endif()
 endif()
 
+OPTION(BUILD_SHARED_LIBS "" OFF)
+#set(CMAKE_POSITION_INDEPENDENT_CODE "" ON)
+
+#OPTION(BUILD_SHARED_LIBS "" OFF)
+# https://stackoverflow.com/questions/38296756/what-is-the-idiomatic-way-in-cmake-to-add-the-fpic-compiler-option
+#OPTION(CMAKE_CXX_FLAGS "" -fPIC)
 add_subdirectory(src/DeviceManager_ADS_Samples)
 
-target_link_libraries(DeviceManagerWrapper PRIVATE DeviceManager ${PYTHON_LIBRARIES})
-target_include_directories(DeviceManagerWrapper PUBLIC
+
+target_link_libraries(devicemanagerinterface PRIVATE DeviceManager ${PYTHON_LIBRARIES})
+
+set_property(TARGET DeviceManager PROPERTY POSITION_INDEPENDENT_CODE ON)
+set_property(TARGET ads PROPERTY POSITION_INDEPENDENT_CODE ON)
+
+target_include_directories(devicemanagerinterface PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/src/types
         ${PYTHON_INCLUDE_DIRS} 
 )
+
+#
+#et_target_properties(DeviceManager 
+#        BUILD_SHARED_LIBS=OFF)
+        #CMAKE_CXX_FLAGS=-fPIC)
+#add_compile_options(-fPIC)
