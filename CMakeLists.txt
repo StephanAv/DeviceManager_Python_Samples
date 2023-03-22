@@ -4,7 +4,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# CMAKE SET / OPTION |
 
 find_package(PythonInterp REQUIRED)
 find_package(PythonLibs REQUIRED)
@@ -35,13 +34,8 @@ if (WIN32)
 endif()
 
 OPTION(BUILD_SHARED_LIBS "" OFF)
-#set(CMAKE_POSITION_INDEPENDENT_CODE "" ON)
 
-#OPTION(BUILD_SHARED_LIBS "" OFF)
-# https://stackoverflow.com/questions/38296756/what-is-the-idiomatic-way-in-cmake-to-add-the-fpic-compiler-option
-#OPTION(CMAKE_CXX_FLAGS "" -fPIC)
 add_subdirectory(src/DeviceManager_ADS_Samples)
-
 
 target_link_libraries(devicemanagerinterface PRIVATE DeviceManager ${PYTHON_LIBRARIES})
 
@@ -52,9 +46,3 @@ target_include_directories(devicemanagerinterface PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/src/types
         ${PYTHON_INCLUDE_DIRS} 
 )
-
-#
-#et_target_properties(DeviceManager 
-#        BUILD_SHARED_LIBS=OFF)
-        #CMAKE_CXX_FLAGS=-fPIC)
-#add_compile_options(-fPIC)
