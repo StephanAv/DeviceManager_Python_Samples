@@ -13,6 +13,15 @@
             "cwd": "${workspaceFolder}",
         },
         {
+            "name": "Launch setup.py [Debug 2]",
+            "type": "python",
+            "request": "launch",
+            "module": "build",
+            "justMyCode": false,
+            "args": ["-n", "-w"],
+            "cwd": "${workspaceFolder}",
+        },
+        {
             "name": "Launch setup.py [Release]",
             "type": "python",
             "request": "launch",
