@@ -31,6 +31,23 @@ if (WIN32)
     elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
         target_link_directories(devicemanagerinterface PRIVATE "C:\\TwinCAT\\AdsApi\\TcAdsDll\\lib")
     endif()
+
+    
+elseif(UNIX) # Linux, FreeBSD or TwinCAT/BSD
+
+    execute_process(
+        COMMAND sh -c "kenv loader_brand"
+        OUTPUT_VARIABLE manufacturer
+    )
+
+    if(${manufacturer} MATCHES beckhoff) # Use the TC1000 ADS Router on TwinCAT/BSD
+        target_include_directories(devicemanagerinterface PUBLIC "/usr/local/include")
+        target_link_directories(devicemanagerinterface PRIVATE "/usr/local/lib")
+        target_link_libraries(devicemanagerinterface PUBLIC TcAdsDll)
+        target_compile_definitions(devicemanagerinterface PUBLIC POSIX)
+    else() # Linux build: Use Github ADS Router
+        set_property(TARGET ads PROPERTY POSITION_INDEPENDENT_CODE ON)
+    endif()
 endif()
 
 OPTION(BUILD_SHARED_LIBS "" OFF)
@@ -39,8 +56,8 @@ add_subdirectory(src/DeviceManager_ADS_Samples)
 
 target_link_libraries(devicemanagerinterface PRIVATE DeviceManager ${PYTHON_LIBRARIES})
 
-set_property(TARGET DeviceManager PROPERTY POSITION_INDEPENDENT_CODE ON)
-set_property(TARGET ads PROPERTY POSITION_INDEPENDENT_CODE ON)
+#set_property(TARGET DeviceManager PROPERTY POSITION_INDEPENDENT_CODE ON)
+
 
 target_include_directories(devicemanagerinterface PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/src/types

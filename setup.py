@@ -1,11 +1,13 @@
 import os, subprocess
 from pathlib import Path
+from shutil import copyfile, rmtree
 from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
 
 DeviceManagerCmake = Extension(
     'devicemanagerinterface',
-    sources = []
+    sources = [],
+    #extra_objects = ['devicemanagerinterface']
 )
 
 class CustomBuild(build_ext):
@@ -14,45 +16,45 @@ class CustomBuild(build_ext):
 
         for ext in self.extensions:
 
-            if ext.name == 'devicemanagerinterface':
-                try:
-                    out = subprocess.check_output(['cmake', '--version'])
-                except Exception:
-                    raise RuntimeError('Cannot find CMake executable')
+            try:
+                out = subprocess.check_output(['cmake', '--version'])
+            except Exception:
+                raise RuntimeError('Cannot find CMake executable')
 
-                libBuildPath = Path(self.build_temp, 'lib')
+            libBuildPath = Path(self.build_temp, 'lib')
 
-                if not os.path.exists(libBuildPath):
-                    os.makedirs(libBuildPath)
+            if not os.path.exists(libBuildPath):
+                os.makedirs(libBuildPath)
 
-
-                cfg = 'Debug' if self.debug else 'Release'
-                
-                # Build DeviceManager library
-
-                # Config
-                subprocess.check_call(['cmake', '-S', 'src/DeviceManager_ADS_Samples', '-B',  libBuildPath, 
-                        '-DCMAKE_WINDOWS_EXPORT_ALL_SYMBOLS=TRUE',
-                        '-DBUILD_SHARED_LIBS=OFF',
-                        #'-DPOSITION_INDEPENDENT_CODE=ON'
-                        '-DCMAKE_CXX_FLAGS=-fPIC'
-                        ])
-
-                # Build
-                subprocess.check_call(['cmake', '--build', libBuildPath, '--target', 'DeviceManager', '--config', cfg])
-                
-
-                # Build Python module
-
-                # Config
-                subprocess.check_call(['cmake', '-B', self.build_temp])
+            
+            cfg = 'Debug' if self.debug else 'Release'
 
 
-                # Build
-                subprocess.check_call(['cmake', '--build', self.build_temp, '--config', cfg])
+            # Build Python module
+            prePackageDir = Path(self.get_ext_fullpath(ext.name)).parent.absolute()
 
-                
-            super(CustomBuild, self).build_extension(ext)
+
+            subprocess.check_call(['cmake', '-B', self.build_temp,
+                                    '-DCMAKE_LIBRARY_OUTPUT_DIRECTORY:PATH=' + str(prePackageDir),
+                                    '-DCMAKE_ARCHIVE_OUTPUT_DIRECTORY:PATH=' + str(prePackageDir),
+                                    '-DCMAKE_RUNTIME_OUTPUT_DIRECTORY:PATH=' + str(prePackageDir)
+                                    ])
+
+
+            # Build
+            subprocess.check_call(['cmake', '--build', self.build_temp, '--config', cfg])
+
+            precursor = ext.name
+            if os.name == 'nt':
+                precursor += '.dll'
+            else:
+                precursor += '.so'
+
+            binPrePath = prePackageDir / cfg / precursor
+            binFinalPath = prePackageDir / ext._file_name
+
+            copyfile(binPrePath, binFinalPath)
+            rmtree(prePackageDir / cfg)
 
 
 setup   ( 
