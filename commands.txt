@@ -7,3 +7,43 @@ python.exe: No module named build.__main__; 'build' is a package and cannot be d
 
 # Then
 python -m pip install build
+
+#### Build ####
+
+# Create VENV
+
+python -m venv venv/
+& .\venv\Scripts\Activate.ps1
+python -m pip install .\dist\DeviceManager-0.0.1-cp39-cp39-win_amd64.whl
+python -m pip install ..\dist\DeviceManager-0.0.1-cp39-cp39-win_amd64.whl --force-reinstall
+
+#### Install Editable ####
+(venv active)
+python -m pip install --editable . 
+
+
+##### Debug Python C/C++ Extension #####
+
+1. Build the module specifying debug interpreter: python_d setup.py build --debug
+1. (Neu: python_d -m build -n -w)
+2. Debug with Visual Studio 2022
+3. Specify the module loading path: 
+    current = Path().resolve() / 'build' / 'lib.win-amd64-3.9-pydebug'
+
+    if os.name == 'nt': # Load TwinCAT DLL when on Windows
+        sys.path.append(str(current))
+
+4. Make sure that no other module is present
+5. Activate Native Code Debugging
+6. Choose python_d as interpreter
+
+python_d -m pip install --debug --editable .
+
+
+##### Build Wheel ######
+[https://peps.python.org/pep-0517/]
+https://pypa-build.readthedocs.io/en/latest/
+python -m build --wheel
+python -m build --wheel --no-isolation
+
+Das Kommando funktioniert nicht von der Developer Powershell aus in VS2022
