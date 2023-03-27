@@ -1,6 +1,7 @@
 #fro    m gettext import bind_textdomain_codeset
 #from asyncio import base_tasks
 #from email.generator import BytesGenerator
+from email import base64mime
 import os, sys, glob, json
 from shutil import rmtree
 from pathlib import Path
@@ -13,13 +14,14 @@ if os.name == 'nt': # Load TwinCAT DLL when on Windows
     sys.path.append(str(extBinDir))
 
 #### OPTIONS ####
-bBuild      = True
+bBuild      = False
 bRebuild    = False
-bTarget     = True
-bCPU        = False
+bTarget     = False
+bCPU        = True
 bMB         = False
 bTC         = False
 bGen        = False
+bMisc       = False
 
 
 if bBuild:
@@ -87,6 +89,9 @@ try:
         print(gen.name())
     else:
         print('General module not available on target')
+
+    if bMisc:
+        target.reboot()
 
 except Exception as e:
     print(e)

@@ -1,9 +1,11 @@
-import os
+#import os
+#from tkinter import Misc
 from devicemanager.cpu import CPU
 from devicemanager.mainboard import Mainboard
 from devicemanager.twincat import TwinCAT
 from devicemanager.general import General
 from devicemanager.device import Device
+from devicemanager.miscellaneous import Miscellaneous
 
 class Target:
 
@@ -26,6 +28,13 @@ class Target:
 
         self.Device = None
         self.Device = Device(self.AmsNetId, self.ipAddr, timeout)
+
+        self.Miscellaneous = None
+        self.Miscellaneous = Miscellaneous(self.AmsNetId, timeout)
+
+    def reboot(self):
+        self.Miscellaneous.reboot()
+
 
     def all(self) -> dict:
         targetInfo = {}

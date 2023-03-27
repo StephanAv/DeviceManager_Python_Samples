@@ -30,6 +30,9 @@
     <Compile Include="src\devicemanager\device.py" />
     <Compile Include="src\devicemanager\general.py" />
     <Compile Include="src\devicemanager\mainboard.py" />
+    <Compile Include="src\devicemanager\miscellaneous.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="src\devicemanager\targetdevice.py" />
     <Compile Include="src\devicemanager\twincat.py" />
     <Compile Include="src\devicemanager\__init__.py" />
