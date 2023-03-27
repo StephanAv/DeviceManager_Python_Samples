@@ -45,6 +45,7 @@ elseif(UNIX) # Linux, FreeBSD or TwinCAT/BSD
     set_property(TARGET DeviceManager PROPERTY POSITION_INDEPENDENT_CODE ON)
     
     if(${manufacturer} MATCHES beckhoff) # Use the TC1000 ADS Router on TwinCAT/BSD
+	add_compile_definitions(USE_TWINCAT_ROUTER)
         target_include_directories(devicemanagerinterface PUBLIC "/usr/local/include")
         target_link_directories(devicemanagerinterface PRIVATE "/usr/local/lib")
         target_link_libraries(devicemanagerinterface PUBLIC TcAdsDll)
