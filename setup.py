@@ -54,8 +54,14 @@ class CustomBuild(build_ext):
             binFinalPath = prePackageDir / ext._file_name
 
             copyfile(binPrePath, binFinalPath)
-			# TODO: Copy & rename *.pdb file in Debug configuration on NT platform
-            #rmtree(prePackageDir / cfg)
+
+            # Copy PDB file also
+            if cfg == 'Debug' and os.name == 'nt':
+                pbdPrePath = prePackageDir / cfg / (ext.name + '.pdb')
+                pdbFinalPath = prePackageDir / (ext._file_name[:-3] + 'pdb')
+                copyfile(pbdPrePath, pdbFinalPath)
+
+            rmtree(prePackageDir / cfg)
 
 
 setup   ( 
