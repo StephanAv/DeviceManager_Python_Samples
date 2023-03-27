@@ -28,6 +28,9 @@
     <Compile Include="setup.py" />
     <Compile Include="src\devicemanager\cpu.py" />
     <Compile Include="src\devicemanager\device.py" />
+    <Compile Include="src\devicemanager\file_system.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="src\devicemanager\general.py" />
     <Compile Include="src\devicemanager\mainboard.py" />
     <Compile Include="src\devicemanager\miscellaneous.py">

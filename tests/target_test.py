@@ -1,6 +1,7 @@
 #fro    m gettext import bind_textdomain_codeset
 #from asyncio import base_tasks
 #from email.generator import BytesGenerator
+from asyncio import base_futures
 from email import base64mime
 import os, sys, glob, json
 from shutil import rmtree
@@ -22,6 +23,7 @@ bMB         = False
 bTC         = False
 bGen        = False
 bMisc       = False
+bFSO        = True
 
 
 if bBuild:
@@ -83,15 +85,24 @@ try:
     else:
         print('TwinCAT module not available on target')
 
+    if(fso := target.FileSystem) and bFSO:
+        bytesRead = fso.read('C:/TwinCAT/3.1/Boot/AdsFileBrowser.zip', 'C:/Users/StephanA/Downloads/AdsFileBrowser.zip')
+        print('Bytes read from target: {}'.format(bytesRead))
+    else:
+        print('File System module not available on target')
+
+
     #### General ####
 
-    if(gen := target.General) and bGen:
+    if(gen := target.General) and bFSO:
         print(gen.name())
     else:
         print('General module not available on target')
 
     if bMisc:
         target.reboot()
+
+
 
 except Exception as e:
     print(e)

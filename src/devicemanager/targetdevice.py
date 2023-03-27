@@ -6,6 +6,7 @@ from devicemanager.twincat import TwinCAT
 from devicemanager.general import General
 from devicemanager.device import Device
 from devicemanager.miscellaneous import Miscellaneous
+from devicemanager.file_system import FSO
 
 class Target:
 
@@ -31,6 +32,9 @@ class Target:
 
         self.Miscellaneous = None
         self.Miscellaneous = Miscellaneous(self.AmsNetId, timeout)
+
+        self.FileSystem = None 
+        self.FileSystem = FSO(self.AmsNetId, timeout)
 
     def reboot(self):
         self.Miscellaneous.reboot()

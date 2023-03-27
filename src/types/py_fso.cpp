@@ -1,4 +1,6 @@
 #include <Python.h>
+#include <functional>
+
 #include "file_system_object.h"
 #include "py_fso.h"
 #include "ads_py_error.h"
@@ -89,17 +91,48 @@ PyObject* readFile(PyObject* self, PyObject* args)
     FsoType* self_fso = reinterpret_cast<FsoType*>(self);
     char* targetFilePath = NULL;
     char* localFilePath  = NULL;
+    PyObject* fPyProgress = NULL;
 
-    if (!PyArg_ParseTuple(args, "ss", &targetFilePath, &localFilePath)) {
+    if (!PyArg_ParseTuple(args, "ss|O", &targetFilePath, &localFilePath, &fPyProgress)) {
         return NULL;
     }
+    // Testen ob callacle and ungleich NUll
+    //PyObject_CallObject
+   
+
+
+    //int32_t readDeviceFile(const char file_name[],
+    //    std::ostream & local_file,
+    //    size_t & n_bytes_count = m_bytesCount,
+    //    std::function<void(int)> bar = std::function<void(int)>(),
+    //    bool& cancel = m_bDefaultCancel);
+
+    int callable = PyCallable_Check(fPyProgress);
+
+    std::function<void(int)> fPyMakeProgress = [&](int nProgress) {
+        //PyObject_CallObject(fPyProgress, PyLong_FromLong(nProgress));
+        //int callableb = PyCallable_Check(fPyProgress);
+        PyObject_CallFunction(fPyProgress, "i", nProgress);
+    };
+
+    size_t bytesRead = 0; // TODO
 
     std::ofstream fileSink;
     fileSink.exceptions(std::ifstream::badbit);
 
     try {
         fileSink.open(localFilePath, std::ios::binary);
-        int32_t ret = self_fso->m_dtype->readDeviceFile(targetFilePath, fileSink);
+        int32_t ret = 0;
+
+
+        if (fPyProgress && PyCallable_Check(fPyProgress)) { // With progress bar
+            ret = self_fso->m_dtype->readDeviceFile(targetFilePath, fileSink, bytesRead, fPyMakeProgress);
+        }
+        else { // Without progress bar (silent mode)
+            ret = self_fso->m_dtype->readDeviceFile(targetFilePath, fileSink, bytesRead);
+        }
+
+        
         if (ret) {
             PyErr_SetObject(PyExc_RuntimeError, adsErrorStr(ret));
             return NULL;
@@ -115,7 +148,7 @@ PyObject* readFile(PyObject* self, PyObject* args)
         return NULL;
     }
 
-    Py_RETURN_NONE;
+    return PyLong_FromUnsignedLong(bytesRead);
 }
 
 PyObject* writeFile(PyObject* self, PyObject* args)

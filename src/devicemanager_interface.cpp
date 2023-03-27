@@ -73,7 +73,7 @@ PyInit_devicemanagerinterface(void) {
         return NULL;
     }
 
-    // Create and add mainboard type
+    // Create and add Mainboard type
     PyObject* mb_type = PyType_FromSpec(&MbType_spec);
     if (mb_type == NULL) {
         decref(vDecr);
