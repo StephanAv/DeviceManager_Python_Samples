@@ -48,9 +48,12 @@ class CustomBuild(build_ext):
             if os.name == 'nt':
                 precursor += '.dll'
             else:
-                precursor += '.so'
+                precursor = 'lib' + precursor + '.so'
 
-            binPrePath = prePackageDir / cfg / precursor
+            if os.name == 'nt':
+                binPrePath = prePackageDir / cfg / precursor
+            else:
+                binPrePath = prePackageDir / precursor
             binFinalPath = prePackageDir / ext._file_name
 
             copyfile(binPrePath, binFinalPath)
@@ -61,7 +64,16 @@ class CustomBuild(build_ext):
                 pdbFinalPath = prePackageDir / (ext._file_name[:-3] + 'pdb')
                 copyfile(pbdPrePath, pdbFinalPath)
 
-            rmtree(prePackageDir / cfg)
+            if os.name == 'nt':
+                rmtree(prePackageDir / cfg)
+            else:
+                os.remove(binPrePath)
+                files = os.listdir(prePackageDir)
+
+                for _file in files:
+                    if _file.endswith(".a"):
+                        os.remove(os.path.join(prePackageDir, _file))
+
 
 
 setup   ( 

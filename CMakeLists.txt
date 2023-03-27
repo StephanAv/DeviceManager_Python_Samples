@@ -18,6 +18,12 @@ add_library(devicemanagerinterface
         src/types/py_device.cpp
 )
 
+OPTION(BUILD_SHARED_LIBS "" OFF)
+
+add_subdirectory(src/DeviceManager_ADS_Samples)
+
+
+
 if (WIN32)
     add_compile_definitions(USE_TWINCAT_ROUTER)
 
@@ -36,7 +42,8 @@ elseif(UNIX) # Linux, FreeBSD or TwinCAT/BSD
         COMMAND sh -c "kenv loader_brand"
         OUTPUT_VARIABLE manufacturer
     )
-
+    set_property(TARGET DeviceManager PROPERTY POSITION_INDEPENDENT_CODE ON)
+    
     if(${manufacturer} MATCHES beckhoff) # Use the TC1000 ADS Router on TwinCAT/BSD
         target_include_directories(devicemanagerinterface PUBLIC "/usr/local/include")
         target_link_directories(devicemanagerinterface PRIVATE "/usr/local/lib")
@@ -47,9 +54,7 @@ elseif(UNIX) # Linux, FreeBSD or TwinCAT/BSD
     endif()
 endif()
 
-OPTION(BUILD_SHARED_LIBS "" OFF)
 
-add_subdirectory(src/DeviceManager_ADS_Samples)
 
 target_link_libraries(devicemanagerinterface PRIVATE DeviceManager ${Python3_LIBRARIES})
 
