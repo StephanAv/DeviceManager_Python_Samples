@@ -1,6 +1,4 @@
-#fro    m gettext import bind_textdomain_codeset
-#from asyncio import base_tasks
-#from email.generator import BytesGenerator
+import logging
 from asyncio import base_futures
 from email import base64mime
 import os, sys, glob, json
@@ -16,15 +14,15 @@ if os.name == 'nt': # Load TwinCAT DLL when on Windows
 
 #### OPTIONS ####
 bRebuildCpp = False
-bRebuildPy  = True
+bRebuildPy  = False
 bTarget     = False
 bCPU        = True
 bMB         = False
 bTC         = False
 bGen        = False
 bMisc       = False
-bFSO        = True
-
+bFSO        = False
+logging.basicConfig(level=logging.DEBUG)
 
 if bRebuildCpp:
 
@@ -51,8 +49,8 @@ except Exception as e:
 print('Current Process ID: ' + str(os.getpid()))
 
 #target = Target('5.69.55.236.1.1', timeout = 2500) # Windows
-target = Target('5.69.55.236.1.1') # Windows
-#target = Target('5.80.201.232.1.1') # TC/BSD
+#target = Target('5.69.55.236.1.1') # Windows
+target = Target('5.80.201.232.1.1') # TC/BSD
 
 
 ##### Target #####
@@ -94,10 +92,16 @@ try:
     ##### File System #####
 
     if(fso := target.FileSystem) and bFSO:
-        bytesRead = fso.read('C:/TwinCAT/3.1/Boot/AdsFileBrowser.zip', 'C:/Users/StephanA/Downloads/AdsFileBrowser.zip')
-        bytesRead = fso.read('C:/TwinCAT/3.1/Boot/AdsFileBrowser.zip', 'C:/Users/StephanA/Downloads/AdsFileBrowser.zip', silent = True)
-        bytesRead = fso.read('C:/TwinCAT/3.1/Boot/AdsFileBrowser.zip', 'C:/Users/StephanA/Downloads/AdsFileBrowser.zip')
-        print('Bytes read from target: {}'.format(bytesRead))
+        #bytesRead = fso.read('C:/TwinCAT/3.1/Boot/AdsFileBrowser.zip', 'C:/Users/StephanA/Downloads/AdsFileBrowser.zip')
+        #bytesRead = fso.read('C:/TwinCAT/3.1/Boot/AdsFileBrowser.zip', 'C:/Users/StephanA/Downloads/AdsFileBrowser.zip', silent = True)
+        #bytesRead = fso.read('C:/TwinCAT/3.1/Boot/AdsFileBrowser.zip', 'C:/Users/StephanA/Downloads/AdsFileBrowser.zip')
+        #print('Bytes read from target: {}'.format(bytesRead))
+        bytesWritten = fso.write('C:/TwinCAT/3.1/Boot/test.jpeg', 'C:/Users/StephanA/Downloads/test.jpeg')
+        print('Bytes written to target: {}'.format(bytesWritten))
+        bytesWritten = fso.write('C:/TwinCAT/3.1/Boot/test.jpeg', 'C:/Users/StephanA/Downloads/test.jpeg', silent = True)
+        print('Bytes written to target: {}'.format(bytesWritten))
+        bytesWritten = fso.write('C:/TwinCAT/3.1/Boot/test.jpeg', 'C:/Users/StephanA/Downloads/test.jpeg')
+        print('Bytes written to target: {}'.format(bytesWritten))
     else:
         print('File System module not available on target')
 

@@ -143,15 +143,31 @@ PyObject* writeFile(PyObject* self, PyObject* args)
 
     char* targetFilePath = NULL;
     char* sourceFilePath = NULL;
-    if (!PyArg_ParseTuple(args, "ss", &targetFilePath, &sourceFilePath)) {
+    PyObject* fPyProgress = NULL;
+
+    if (!PyArg_ParseTuple(args, "ss|O", &targetFilePath, &sourceFilePath, &fPyProgress)) {
         return NULL;
     }
 
+    size_t bytesWritten = 0;
     std::ifstream fileSource;
     fileSource.exceptions(std::ifstream::badbit);
     try {
         fileSource.open(sourceFilePath, std::ios::binary);
-        int32_t ret = self_fso->m_dtype->writeDeviceFile(targetFilePath, fileSource);
+        int32_t ret = 0;
+
+        if (fPyProgress && PyCallable_Check(fPyProgress)) { // With progress bar
+
+            std::function<void(int)> fPyMakeProgress = [&](int nProgress) {
+                PyObject_CallFunction(fPyProgress, "i", nProgress);
+            };
+
+            ret = self_fso->m_dtype->writeDeviceFile(targetFilePath, fileSource, bytesWritten, fPyMakeProgress);
+        }
+        else {
+            ret = self_fso->m_dtype->writeDeviceFile(targetFilePath, fileSource, bytesWritten);
+        }
+        
         if (ret) {
             PyErr_SetObject(PyExc_RuntimeError, adsErrorStr(ret));
             return NULL;
@@ -167,7 +183,7 @@ PyObject* writeFile(PyObject* self, PyObject* args)
         return NULL;
     }
 
-    Py_RETURN_NONE;
+    return PyLong_FromUnsignedLong(bytesWritten);
 }
 
 PyObject* copyFile(PyObject* self, PyObject* args)

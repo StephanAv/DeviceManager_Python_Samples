@@ -1,4 +1,4 @@
-#import os
+import logging
 #from tkinter import Misc
 from devicemanager.cpu import CPU
 from devicemanager.mainboard import Mainboard
@@ -11,7 +11,9 @@ from devicemanager.file_system import FSO
 class Target:
 
     def __init__(self, AmsNetId: str, ipAddr : str = '', timeout = 2000):
-        print('Target::__init__() called')
+
+        logging.debug('Target::__init__() called')
+
         self.AmsNetId = AmsNetId
         self.ipAddr = ipAddr
 
@@ -38,7 +40,6 @@ class Target:
 
     def reboot(self):
         self.Miscellaneous.reboot()
-
 
     def all(self) -> dict:
         targetInfo = {}

@@ -1,4 +1,4 @@
-import os
+import os, logging
 if os.name == 'nt': # Load TwinCAT DLL when on Windows
     os.add_dll_directory('C:/TwinCAT/Common64')
 
@@ -9,7 +9,9 @@ class Mainboard:
     _mb = None
 
     def __init__(self, AmsNetId: str, ipAddr : str = '', timeout = 2000):
-        print('Mainboard::__init__() called')
+
+        logging.debug('Mainboard::__init__() called')
+
         if os.name == 'nt':
             self._mb = _mb(AmsNetId, timeout)
 

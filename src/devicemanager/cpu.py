@@ -1,15 +1,17 @@
-import os
+import os, logging
 if os.name == 'nt': # Load TwinCAT DLL when on Windows
     os.add_dll_directory('C:/TwinCAT/Common64')
 
 from devicemanagerinterface import CPU as _cpu
+
 
 class CPU:
 
     _cpu = None
 
     def __init__(self, AmsNetId: str, ipAddr : str = '', timeout = 2000):
-        print('CPU::__init__() called')
+        
+        logging.debug('CPU::__init__() called')
         
         if os.name == 'nt':
             self._cpu = _cpu(AmsNetId, timeout)
