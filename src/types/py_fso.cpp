@@ -96,27 +96,8 @@ PyObject* readFile(PyObject* self, PyObject* args)
     if (!PyArg_ParseTuple(args, "ss|O", &targetFilePath, &localFilePath, &fPyProgress)) {
         return NULL;
     }
-    // Testen ob callacle and ungleich NUll
-    //PyObject_CallObject
-   
 
-
-    //int32_t readDeviceFile(const char file_name[],
-    //    std::ostream & local_file,
-    //    size_t & n_bytes_count = m_bytesCount,
-    //    std::function<void(int)> bar = std::function<void(int)>(),
-    //    bool& cancel = m_bDefaultCancel);
-
-    int callable = PyCallable_Check(fPyProgress);
-
-    std::function<void(int)> fPyMakeProgress = [&](int nProgress) {
-        //PyObject_CallObject(fPyProgress, PyLong_FromLong(nProgress));
-        //int callableb = PyCallable_Check(fPyProgress);
-        PyObject_CallFunction(fPyProgress, "i", nProgress);
-    };
-
-    size_t bytesRead = 0; // TODO
-
+    size_t bytesRead = 0;
     std::ofstream fileSink;
     fileSink.exceptions(std::ifstream::badbit);
 
@@ -126,6 +107,11 @@ PyObject* readFile(PyObject* self, PyObject* args)
 
 
         if (fPyProgress && PyCallable_Check(fPyProgress)) { // With progress bar
+
+            std::function<void(int)> fPyMakeProgress = [&](int nProgress) {
+                PyObject_CallFunction(fPyProgress, "i", nProgress);
+            };
+
             ret = self_fso->m_dtype->readDeviceFile(targetFilePath, fileSink, bytesRead, fPyMakeProgress);
         }
         else { // Without progress bar (silent mode)

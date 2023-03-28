@@ -1,11 +1,12 @@
 import os
+from tqdm import tqdm
+
 if os.name == 'nt': # Load TwinCAT DLL when on Windows
     os.add_dll_directory('C:/TwinCAT/Common64')
 
 from devicemanagerinterface import FileSystem as _fso
 
-def progress(x):
-    print(str(x))
+
 
 class FSO:
 
@@ -17,7 +18,16 @@ class FSO:
             self._fso = _fso(AmsNetId, timeout)
 
     def read(self, targetFile : str, localFile: str, silent : bool = False) -> int:
-        bytesRead = self._fso.readFile(targetFile, localFile, progress)
-        bytesRead = 5
+
+        bytesRead = 0
+
+        if silent:
+            bytesRead = self._fso.readFile(targetFile, localFile)
+        else:
+            pBar = tqdm(total=100)
+            fBar = lambda n: pBar.update((n+1) - pBar.n) 
+            bytesRead = self._fso.readFile(targetFile, localFile, fBar)
+            pBar.close()
+
         return bytesRead
 

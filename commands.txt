@@ -24,8 +24,7 @@ python -m pip install --editable .
 
 ##### Debug Python C/C++ Extension #####
 
-1. Build the module specifying debug interpreter: python_d setup.py build --debug
-1. (Neu: python_d -m build -n -w)
+1. Build the module specifying debug interpreter: python_d setup.py build --debug 
 2. Debug with Visual Studio 2022
 3. Specify the module loading path: 
     current = Path().resolve() / 'build' / 'lib.win-amd64-3.9-pydebug'
@@ -47,3 +46,19 @@ python -m build --wheel
 python -m build --wheel --no-isolation
 
 Das Kommando funktioniert nicht von der Developer Powershell aus in VS2022
+
+
+
+#### Installationsanweisungen TwinCAT/BSD
+
+git clone --recurse-submodules https://github.com/StephanAv/DeviceManager_Python_Samples
+
+pkg install python
+pkg install py39-pip
+
+python -m pip install build
+python -m pip install wheel
+
+
+cmkae ?
+build-essentials ?

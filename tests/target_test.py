@@ -15,8 +15,8 @@ if os.name == 'nt': # Load TwinCAT DLL when on Windows
     sys.path.append(str(extBinDir))
 
 #### OPTIONS ####
-bBuild      = False
-bRebuild    = False
+bRebuildCpp = False
+bRebuildPy  = True
 bTarget     = False
 bCPU        = True
 bMB         = False
@@ -26,15 +26,21 @@ bMisc       = False
 bFSO        = True
 
 
-if bBuild:
-    if bRebuild:
-        for f in glob.glob(str(extBinDir / '*.pyd')):
-            os.remove(f)
+if bRebuildCpp:
+
+    files = os.listdir(extBinDir)
+
+    for _file in files:
+        if _file.endswith(".pyd") or _file.endswith(".pdb"):
+            os.remove(os.path.join(extBinDir, _file))
+
+if bRebuildPy:
     try:
         rmtree(str(extBinDir / 'devicemanager'))
     except Exception:
         pass
 
+if bRebuildCpp or bRebuildPy:
     os.system('python_d setup.py build --debug')
 
 
@@ -85,7 +91,11 @@ try:
     else:
         print('TwinCAT module not available on target')
 
+    ##### File System #####
+
     if(fso := target.FileSystem) and bFSO:
+        bytesRead = fso.read('C:/TwinCAT/3.1/Boot/AdsFileBrowser.zip', 'C:/Users/StephanA/Downloads/AdsFileBrowser.zip')
+        bytesRead = fso.read('C:/TwinCAT/3.1/Boot/AdsFileBrowser.zip', 'C:/Users/StephanA/Downloads/AdsFileBrowser.zip', silent = True)
         bytesRead = fso.read('C:/TwinCAT/3.1/Boot/AdsFileBrowser.zip', 'C:/Users/StephanA/Downloads/AdsFileBrowser.zip')
         print('Bytes read from target: {}'.format(bytesRead))
     else:
