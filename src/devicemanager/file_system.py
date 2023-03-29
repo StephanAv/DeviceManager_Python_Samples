@@ -45,3 +45,6 @@ class FSO:
             bytesWritten = self._fso.writeFile(targetFile, localFile, fBar)
 
         return bytesWritten;
+
+    def dir(self, targetPath) -> tuple[list[str], tuple[str, int]]:
+        return self._fso.dir(targetPath)

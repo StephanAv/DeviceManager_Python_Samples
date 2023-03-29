@@ -21,7 +21,7 @@ bMB         = False
 bTC         = False
 bGen        = False
 bMisc       = False
-bFSO        = False
+bFSO        = True
 logging.basicConfig(level=logging.DEBUG)
 
 if bRebuildCpp:
@@ -96,12 +96,13 @@ try:
         #bytesRead = fso.read('C:/TwinCAT/3.1/Boot/AdsFileBrowser.zip', 'C:/Users/StephanA/Downloads/AdsFileBrowser.zip', silent = True)
         #bytesRead = fso.read('C:/TwinCAT/3.1/Boot/AdsFileBrowser.zip', 'C:/Users/StephanA/Downloads/AdsFileBrowser.zip')
         #print('Bytes read from target: {}'.format(bytesRead))
-        bytesWritten = fso.write('C:/TwinCAT/3.1/Boot/test.jpeg', 'C:/Users/StephanA/Downloads/test.jpeg')
-        print('Bytes written to target: {}'.format(bytesWritten))
-        bytesWritten = fso.write('C:/TwinCAT/3.1/Boot/test.jpeg', 'C:/Users/StephanA/Downloads/test.jpeg', silent = True)
-        print('Bytes written to target: {}'.format(bytesWritten))
-        bytesWritten = fso.write('C:/TwinCAT/3.1/Boot/test.jpeg', 'C:/Users/StephanA/Downloads/test.jpeg')
-        print('Bytes written to target: {}'.format(bytesWritten))
+        #bytesWritten = fso.write('C:/TwinCAT/3.1/Boot/test.jpeg', 'C:/Users/StephanA/Downloads/test.jpeg')
+        #print('Bytes written to target: {}'.format(bytesWritten))
+        #bytesWritten = fso.write('C:/TwinCAT/3.1/Boot/test.jpeg', 'C:/Users/StephanA/Downloads/test.jpeg', silent = True)
+        #print('Bytes written to target: {}'.format(bytesWritten))
+        #bytesWritten = fso.write('C:/TwinCAT/3.1/Boot/test.jpeg', 'C:/Users/StephanA/Downloads/test.jpeg')
+        #print('Bytes written to target: {}'.format(bytesWritten))
+        folder, files = fso.dir('/usr/local/etc/TwinCAT/3.1/Boot/*')
     else:
         print('File System module not available on target')
 

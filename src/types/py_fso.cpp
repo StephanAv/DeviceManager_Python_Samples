@@ -15,7 +15,7 @@ PyObject* dir(PyObject* self, PyObject* args)
     }
 
     std::vector<std::string> folders;
-    std::vector<std::string> files;
+    std::vector<DeviceManager::TFileInfoEx> files;
 
     int32_t ret = self_fso->m_dtype->dir(path, folders, files);
     if (ret) {
@@ -38,11 +38,16 @@ PyObject* dir(PyObject* self, PyObject* args)
     PyObject* pyListFiles = PyList_New(files.size());
 
     for (Py_ssize_t j = 0; j < files.size(); j++) {
-        PyObject* pyFile = PyUnicode_FromString(files[j].c_str());
-        if (!pyFile) {
+
+        PyObject* fName = PyUnicode_FromString(files[j].fName.c_str());
+        PyObject* nSize = PyLong_FromLongLong(files[j].filesize);
+        PyObject* fileTuple = Py_BuildValue("(OO)", fName, nSize);
+
+        //PyObject* pyFile = PyUnicode_FromString(files[j].c_str());
+        if (!fName || !nSize || !fileTuple) {
             continue;
         }
-        PyList_SetItem(pyListFiles, j, pyFile);
+        PyList_SetItem(pyListFiles, j, fileTuple);
     }
 
     return Py_BuildValue("OO", pyListFolders, pyListFiles);
