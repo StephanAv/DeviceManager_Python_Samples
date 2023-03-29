@@ -14,7 +14,7 @@ if os.name == 'nt': # Load TwinCAT DLL when on Windows
 
 #### OPTIONS ####
 bRebuildCpp = False
-bRebuildPy  = False
+bRebuildPy  = True
 bTarget     = False
 bCPU        = True
 bMB         = False
@@ -92,17 +92,27 @@ try:
     ##### File System #####
 
     if(fso := target.FileSystem) and bFSO:
+        
+        ### Read ###
         #bytesRead = fso.read('C:/TwinCAT/3.1/Boot/AdsFileBrowser.zip', 'C:/Users/StephanA/Downloads/AdsFileBrowser.zip')
         #bytesRead = fso.read('C:/TwinCAT/3.1/Boot/AdsFileBrowser.zip', 'C:/Users/StephanA/Downloads/AdsFileBrowser.zip', silent = True)
         #bytesRead = fso.read('C:/TwinCAT/3.1/Boot/AdsFileBrowser.zip', 'C:/Users/StephanA/Downloads/AdsFileBrowser.zip')
         #print('Bytes read from target: {}'.format(bytesRead))
+
+        ### Write ###
         #bytesWritten = fso.write('C:/TwinCAT/3.1/Boot/test.jpeg', 'C:/Users/StephanA/Downloads/test.jpeg')
         #print('Bytes written to target: {}'.format(bytesWritten))
         #bytesWritten = fso.write('C:/TwinCAT/3.1/Boot/test.jpeg', 'C:/Users/StephanA/Downloads/test.jpeg', silent = True)
         #print('Bytes written to target: {}'.format(bytesWritten))
         #bytesWritten = fso.write('C:/TwinCAT/3.1/Boot/test.jpeg', 'C:/Users/StephanA/Downloads/test.jpeg')
         #print('Bytes written to target: {}'.format(bytesWritten))
-        folder, files = fso.dir('/usr/local/etc/TwinCAT/3.1/Boot/*')
+
+        ### Dir ###
+        #folder, files = fso.dir('/usr/local/etc/TwinCAT/3.1/Boot/*')
+        #print(json.dumps( (folder, files), sort_keys=True, indent=4 ))
+
+        fso.delete('/usr/local/etc/TwinCAT/3.1/Boot/test.txt')
+        
     else:
         print('File System module not available on target')
 

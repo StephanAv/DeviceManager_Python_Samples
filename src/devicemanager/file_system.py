@@ -46,5 +46,8 @@ class FSO:
 
         return bytesWritten;
 
-    def dir(self, targetPath) -> tuple[list[str], tuple[str, int]]:
+    def dir(self, targetPath: str) -> tuple[list[str], tuple[str, int]]:
         return self._fso.dir(targetPath)
+
+    def delete(self, targetFile: str):
+        self._fso.deleteFile(targetFile)
