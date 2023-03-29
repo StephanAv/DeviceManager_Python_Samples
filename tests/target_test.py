@@ -14,7 +14,7 @@ if os.name == 'nt': # Load TwinCAT DLL when on Windows
 
 #### OPTIONS ####
 bRebuildCpp = False
-bRebuildPy  = True
+bRebuildPy  = False
 bTarget     = False
 bCPU        = True
 bMB         = False
@@ -93,6 +93,7 @@ try:
 
     if(fso := target.FileSystem) and bFSO:
         
+        print('File System Operations')
         ### Read ###
         #bytesRead = fso.read('C:/TwinCAT/3.1/Boot/AdsFileBrowser.zip', 'C:/Users/StephanA/Downloads/AdsFileBrowser.zip')
         #bytesRead = fso.read('C:/TwinCAT/3.1/Boot/AdsFileBrowser.zip', 'C:/Users/StephanA/Downloads/AdsFileBrowser.zip', silent = True)
@@ -111,7 +112,14 @@ try:
         #folder, files = fso.dir('/usr/local/etc/TwinCAT/3.1/Boot/*')
         #print(json.dumps( (folder, files), sort_keys=True, indent=4 ))
 
-        fso.delete('/usr/local/etc/TwinCAT/3.1/Boot/test.txt')
+        ### Delete ###
+        #fso.delete('/usr/local/etc/TwinCAT/3.1/Boot/test.txt')
+
+        ### Copy on target ###
+        #fso.copy(   '/usr/local/etc/TwinCAT/3.1/Boot/CurrentConfig.tszip', # source
+        #            '/usr/local/etc/TwinCAT/3.1/CurrentConfigBackup.tszip' # destination
+        #        ) 
+                    
         
     else:
         print('File System module not available on target')

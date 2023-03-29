@@ -51,3 +51,6 @@ class FSO:
 
     def delete(self, targetFile: str):
         self._fso.deleteFile(targetFile)
+
+    def copy(self, source : str, destination: str):
+        self._fso.copyFile(source, destination);
