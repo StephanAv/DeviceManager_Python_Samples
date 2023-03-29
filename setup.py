@@ -61,7 +61,7 @@ class CustomBuild(build_ext):
             # Copy PDB file also
             if cfg == 'Debug' and os.name == 'nt':
                 pbdPrePath = prePackageDir / cfg / (ext.name + '.pdb')
-                pdbFinalPath = prePackageDir / (ext._file_name[:-3] + 'pdb')
+                pdbFinalPath = prePackageDir / (ext.name + '.pdb')
                 copyfile(pbdPrePath, pdbFinalPath)
 
             if os.name == 'nt':
@@ -79,5 +79,8 @@ class CustomBuild(build_ext):
 setup   ( 
         ext_modules = [DeviceManagerCmake],
         package_dir={'': 'src'},
-        cmdclass = {'build_ext': CustomBuild}
+        cmdclass = {'build_ext': CustomBuild},
+        install_requires=[
+            'tqdm',    
+        ],
         )
