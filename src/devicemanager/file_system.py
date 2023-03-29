@@ -53,4 +53,7 @@ class FSO:
         self._fso.deleteFile(targetFile)
 
     def copy(self, source : str, destination: str):
-        self._fso.copyFile(source, destination);
+        self._fso.copyFile(source, destination)
+
+    def mkdir(self, path : str, recursive : bool = True):
+        self._fso.mkdir(path, recursive)

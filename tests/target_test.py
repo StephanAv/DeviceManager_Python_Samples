@@ -120,6 +120,8 @@ try:
         #            '/usr/local/etc/TwinCAT/3.1/CurrentConfigBackup.tszip' # destination
         #        ) 
                     
+        ### MKDIR ###
+        #fso.mkdir('/usr/local/etc/TwinCAT/3.1/Boot/myfolder/alsomyfolder')
         
     else:
         print('File System module not available on target')
