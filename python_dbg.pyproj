@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>3dcff6ff-6126-4612-8241-b326748fd68a</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>tests\target_test.py</StartupFile>
+    <StartupFile>tests\main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -39,8 +39,7 @@
     <Compile Include="src\devicemanager\targetdevice.py" />
     <Compile Include="src\devicemanager\twincat.py" />
     <Compile Include="src\devicemanager\__init__.py" />
-    <Compile Include="tests\mod_test.py" />
-    <Compile Include="tests\target_test.py" />
+    <Compile Include="tests\main.py" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|VisualStudio|Python39_64_dbg" />
