@@ -50,7 +50,14 @@ print('Current Process ID: ' + str(os.getpid()))
 
 #target = Target('5.69.55.236.1.1', timeout = 2500) # Windows
 #target = Target('5.69.55.236.1.1') # Windows
-target = Target('5.80.201.232.1.1') # TC/BSD
+#target = Target('5.80.201.232.1.1') # TC/BSD
+
+try:
+    target = Target() # TC/BSD
+except Exception as e:
+    print(e)
+    raise
+
 
 
 ##### Target #####
@@ -60,7 +67,7 @@ if bTarget:
         print(json.dumps(target.all(),sort_keys=True, indent=4))
     except Exception as e:
         print(e)
-        pass
+        raise
 
 try:
 
