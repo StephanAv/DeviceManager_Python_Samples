@@ -10,7 +10,7 @@ from devicemanager.file_system import FSO
 
 class Target:
 
-    def __init__(self, AmsNetId: str, ipAddr : str = '', timeout = 2000):
+    def __init__(self, AmsNetId: str = '', ipAddr : str = '', timeout = 2000):
 
         logging.debug('Target::__init__() called')
 

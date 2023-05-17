@@ -61,21 +61,33 @@ int dtype_init(PyObject *self, PyObject *args, PyObject *kwds){
     }
 #endif
 
-    // Parse AmsNetId
 
-    uint8_t b_netId[6]  = { 0, 0, 0, 0, 1, 1 };
-    size_t i = 0;
-    std::istringstream s_amsAddr(amsAddr);
-    std::string token;
+    uint8_t b_netId[6] = { 0, 0, 0, 0, 1, 1 };
 
-    while((i < sizeof(b_netId)) && std::getline(s_amsAddr, token, '.')){
-        try {
-            b_netId[i++] = std::stoi(token);
-        } catch (std::logic_error const& ex) {
-            std::string err("Error parsing AmsNetId: ");
-            err += ex.what(); 
-            PyErr_SetString(PyExc_RuntimeError, err.c_str());
-            return -1;
+    // String empty - No AmsNetId provided
+    if ((amsAddr != NULL) && (amsAddr[0] == '\0'))
+    {
+        b_netId[4] = 0;
+        b_netId[5] = 0;
+    }
+    else
+    {
+        // Parse AmsNetId
+
+        size_t i = 0;
+        std::istringstream s_amsAddr(amsAddr);
+        std::string token;
+
+        while ((i < sizeof(b_netId)) && std::getline(s_amsAddr, token, '.')) {
+            try {
+                b_netId[i++] = std::stoi(token);
+            }
+            catch (std::logic_error const& ex) {
+                std::string err("Error parsing AmsNetId: ");
+                err += ex.what();
+                PyErr_SetString(PyExc_RuntimeError, err.c_str());
+                return -1;
+            }
         }
     }
 
