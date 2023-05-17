@@ -64,7 +64,7 @@ except Exception as e:
 if bTarget:
     try:
         #print(target.all())
-        print(json.dumps(target.all(),sort_keys=True, indent=4))
+        print(json.dumps(target.all(),sort_keys=True, indent=4, ensure_ascii=False))
     except Exception as e:
         print(e)
         raise
