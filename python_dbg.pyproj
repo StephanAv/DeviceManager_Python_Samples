@@ -40,6 +40,7 @@
     <Compile Include="src\devicemanager\twincat.py" />
     <Compile Include="src\devicemanager\__init__.py" />
     <Compile Include="tests\main.py" />
+    <Compile Include="tests\on_target_test.py" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="Global|VisualStudio|Python39_64_dbg" />
