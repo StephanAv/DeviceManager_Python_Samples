@@ -79,8 +79,5 @@ class CustomBuild(build_ext):
 setup   ( 
         ext_modules = [DeviceManagerCmake],
         package_dir={'': 'src'},
-        cmdclass = {'build_ext': CustomBuild},
-        install_requires=[
-            'tqdm',    
-        ],
+        cmdclass = {'build_ext': CustomBuild}
         )
