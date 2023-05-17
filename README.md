@@ -11,7 +11,7 @@ General Requirements
 - CMake
 
 
-#### Build platform wheel
+### Build platform wheel
 
 Build platform wheel in virtual environment:
 `python -m build --wheel`
