@@ -37,7 +37,8 @@ class CustomBuild(build_ext):
             subprocess.check_call(['cmake', '-B', self.build_temp,
                                     '-DCMAKE_LIBRARY_OUTPUT_DIRECTORY:PATH=' + str(prePackageDir),
                                     '-DCMAKE_ARCHIVE_OUTPUT_DIRECTORY:PATH=' + str(prePackageDir),
-                                    '-DCMAKE_RUNTIME_OUTPUT_DIRECTORY:PATH=' + str(prePackageDir)
+                                    '-DCMAKE_RUNTIME_OUTPUT_DIRECTORY:PATH=' + str(prePackageDir),
+                                    '-DCMAKE_BUILD_TYPE=' + str(cfg)
                                     ])
 
 
