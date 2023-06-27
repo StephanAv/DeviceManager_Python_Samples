@@ -3,7 +3,8 @@ file python
 set args -X dev tests/main.py
 
 layout src
+focus cmd
 
 set breakpoint pending on
-#break $cwd/src/types/py_slot_templates.h:69
-break src/types/py_slot_templates.h:69
+break src/types/py_slot_templates.h:96
+#break getargs.c:1032
