@@ -1,4 +1,4 @@
-# DeviceManager_Python_Samples
+# DeviceManager Python Samples
 
 Build with Python 3.9
 
