@@ -50,7 +50,7 @@ int dtype_init(PyObject *self, PyObject *args, PyObject *kwds){
     uint32_t timeout = 2000; 
 
 #if defined(USE_TWINCAT_ROUTER)
-    if (!PyArg_ParseTuple(args, "s|k", &amsAddr, &timeout)) { // TODO: 'I' instead of 'k'
+    if (!PyArg_ParseTuple(args, "s|I", &amsAddr, &timeout)) {
         return -1;
     }
 #else

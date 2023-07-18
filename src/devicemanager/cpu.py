@@ -20,8 +20,6 @@ class CPU:
             self._cpu = _cpu(AmsNetId, timeout)
         else:
             self_cpu = _cpu(AmsNetId, ipAddr, timeout)
-            x = 3
-
 
     def frequency(self) -> int:
         return self._cpu.getFreq()
