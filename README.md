@@ -10,7 +10,6 @@ General Requirements
 - Python development package
 - CMake
 
-
 ### Build platform wheel
 
 Build platform wheel in virtual environment:
@@ -24,23 +23,25 @@ Build platform wheel in native environment:
 
 #### Build CPython with Pydebug support
 
-- cd ~ 
-- git clone https://github.com/python/cpython.git
-- git checkout 3.9
-- mkdir debug
-- cd debug
-- ../configure --with-pydebug --enable-shared
-- make
-- make test
-- sudo make install
+1. cd ~ 
+2. git clone https://github.com/python/cpython.git
+3. git checkout 3.9
+4. mkdir debug
+5. cd debug
+6. ../configure --with-pydebug --enable-shared
+7. make
+8. make test
+9. sudo make install
 
 #### Build and Debug Devicemanager module
 
-Make sure that `python`points to the previously installed
+Make sure that `python` points to the previously installed
 debug version of CPython.
 
-- python -m setup build --debug
-- gdb -x gdbinit
+1. cd ~ 
+2. git clone --recursive https://github.com/StephanAv/DeviceManager_Python_Samples.git && cd DeviceManager_Python_Samples/
+3. python -m setup build --debug
+4. gdb -x gdbinit
 
 ### Debug instructions for Windows
 
@@ -58,13 +59,20 @@ Requirements:
 5. Native code debugging must be set active in order to debug C/C++ sources
 6. `python_d` must be selected as interpreter
 
+### Build instructions for TwinCAT/BSD
+
+1. Use pkg to install the following packages: `python39`, `py39-pip`, `py39-build`, `py39-wheel`, `git`, `cmake`, `os-generic-userland-devtools`
+2. `cd ~`
+3. `git clone --recursive https://github.com/StephanAv/DeviceManager_Python_Samples.git && cd DeviceManager_Python_Samples/`
+4. `python3.9 -m build --wheel --no-isolation`
+5. `python3.9 -m pip install -I dist/devicemanager-*`
 
 ### Tests
 
 - [main.py](/tests/main.py) - Test scenario with remote target for debugging purpose
 - [on_target_test.py](/tests/on_target_test.py) - For a direct test on a Beckhoff PC
 
-#### Procedure for target test (cmd.exe)
+#### Procedure for on target test (Windows)
  
 Copy the **.whl* and [on_target_test.py](/tests/on_target_test.py) to *C:\Users\Administrator* on the target system.
 Open the command prompt:
