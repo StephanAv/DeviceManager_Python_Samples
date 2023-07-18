@@ -18,7 +18,6 @@
             "request": "launch",
             "module": "build",
             "justMyCode": false,
-            "args": ["-n", "-w"],
             "cwd": "${workspaceFolder}",
         },
         {
@@ -36,6 +35,15 @@
             "program": "tests/target_test.py",
             "cwd": "${workspaceFolder}",
             //"python": "python_d"
+        },
+        {
+            "name": "Debug main test [Debug]",
+            "type": "python",
+            "request": "launch",
+            "program": "tests/main.py",
+            "cwd": "${workspaceFolder}",
+            "args": ["-X dev"],
+            //"python": "${userHome}/cpython/debug/python"
         },
     ]
 }

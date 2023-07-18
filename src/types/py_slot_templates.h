@@ -50,13 +50,13 @@ int dtype_init(PyObject *self, PyObject *args, PyObject *kwds){
     uint32_t timeout = 2000; 
 
 #if defined(USE_TWINCAT_ROUTER)
-    if (!PyArg_ParseTuple(args, "s|k", &amsAddr, &timeout)) {
+    if (!PyArg_ParseTuple(args, "s|k", &amsAddr, &timeout)) { // TODO: 'I' instead of 'k'
         return -1;
     }
 #else
     char *ipAddr  = NULL;
-    // TODO oder ss
-    if (!PyArg_ParseTuple(args, "ss|k", &amsAddr, &ipAddr)) {
+
+    if (!PyArg_ParseTuple(args, "ss|I", &amsAddr, &ipAddr, &timeout)) {
         return -1;
     }
 #endif

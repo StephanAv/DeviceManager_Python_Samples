@@ -1,6 +1,9 @@
-import os, logging
-if os.name == 'nt': # Load TwinCAT DLL when on Windows
+import platform, os, logging
+
+if platform.system() == 'Windows': # Load TwinCAT DLL when on Windows
     os.add_dll_directory('C:/TwinCAT/Common64')
+
+#isTcPlatform = platform.system() == 'Windows' or platform.system() == 'FreeBSD'
 
 from devicemanagerinterface import CPU as _cpu
 
@@ -13,8 +16,11 @@ class CPU:
         
         logging.debug('CPU::__init__() called')
         
-        if os.name == 'nt':
+        if platform.system() == 'Windows':
             self._cpu = _cpu(AmsNetId, timeout)
+        else:
+            self_cpu = _cpu(AmsNetId, ipAddr, timeout)
+            x = 3
 
 
     def frequency(self) -> int:
