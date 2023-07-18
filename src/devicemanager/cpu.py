@@ -15,8 +15,8 @@ class CPU:
     def __init__(self, AmsNetId: str, ipAddr : str = '', timeout = 2000):
         
         logging.debug('CPU::__init__() called')
-        
-        if platform.system() == 'Windows':
+        _system = platform.system()
+        if _system == 'Windows' or _system == 'FreeBSD':
             self._cpu = _cpu(AmsNetId, timeout)
         else:
             self_cpu = _cpu(AmsNetId, ipAddr, timeout)

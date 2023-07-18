@@ -1,4 +1,4 @@
-import os, logging
+import platform, os, logging
 from tqdm import tqdm
 
 if os.name == 'nt': # Load TwinCAT DLL when on Windows
@@ -16,8 +16,11 @@ class FSO:
 
         logging.debug('FSO::__init__() called')
 
-        if os.name == 'nt':
+        _system = platform.system()
+        if _system == 'Windows' or _system == 'FreeBSD':
             self._fso = _fso(AmsNetId, timeout)
+        else:
+            self._fso = _fso(AmsNetId, ipAddr, timeout)
 
     def read(self, targetFile : str, localFile: str, silent : bool = False) -> int:
 

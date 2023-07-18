@@ -1,4 +1,4 @@
-import os, logging
+import platform, os, logging
 if os.name == 'nt': # Load TwinCAT DLL when on Windows
     os.add_dll_directory('C:/TwinCAT/Common64')
 
@@ -12,8 +12,11 @@ class Mainboard:
 
         logging.debug('Mainboard::__init__() called')
 
-        if os.name == 'nt':
+        _system = platform.system()
+        if _system == 'Windows' or _system == 'FreeBSD':
             self._mb = _mb(AmsNetId, timeout)
+        else:
+            self._mb = _mb(AmsNetId, ipAddr, timeout)
 
     def serialNumber(self) -> str:
         return self._mb.serialNumber()

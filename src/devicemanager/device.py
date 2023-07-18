@@ -1,4 +1,4 @@
-import os, logging
+import platform, os, logging
 if os.name == 'nt': # Load TwinCAT DLL when on Windows
     os.add_dll_directory('C:/TwinCAT/Common64')
 
@@ -14,8 +14,11 @@ class Device:
         
         logging.debug('Device::__init__() called')
         
-        if os.name == 'nt':
+        _system = platform.system()
+        if _system == 'Windows' or _system == 'FreeBSD':
             self._device = _device(AmsNetId, timeout)
+        else:
+            self._device = _device(AmsNetId, ipAddr, timeout)
 
     def serialNumber(self) -> str:
         return self._device.serialNumber()
