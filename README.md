@@ -20,6 +20,28 @@ Build platform wheel in native environment:
 `python -m build --wheel --no-isolation`
 
 
+### Debug instructions for Linux
+
+#### Build CPython with Pydebug support
+
+- cd ~ 
+- git clone https://github.com/python/cpython.git
+- git checkout 3.9
+- mkdir debug
+- cd debug
+- ../configure --with-pydebug --enable-shared
+- make
+- make test
+- sudo make install
+
+#### Build and Debug Devicemanager module
+
+Make sure that `python`points to the previously installed
+debug version of CPython.
+
+- python -m setup build --debug
+- gdb -x gdbinit
+
 ### Debug instructions for Windows
 
 Requirements:
@@ -42,7 +64,7 @@ Requirements:
 - [main.py](/tests/main.py) - Test scenario with remote target for debugging purpose
 - [on_target_test.py](/tests/on_target_test.py) - For a direct test on a Beckhoff PC
 
-##### Procedure for target test (cmd.exe)
+#### Procedure for target test (cmd.exe)
  
 Copy the **.whl* and [on_target_test.py](/tests/on_target_test.py) to *C:\Users\Administrator* on the target system.
 Open the command prompt:
